@@ -4,11 +4,13 @@
 #include <Inputs.h>
 #include <parallax.h>
 #include <player.h>
+#include "skyBox.h"
 
 Model *modelTeapot = new Model();
 Inputs *KbMs = new Inputs();
 parallax *plx = new parallax();
 player *ply = new player();
+skyBox *sky = new skyBox();
 
 GLScene::GLScene()
 {
@@ -34,7 +36,7 @@ GLint GLScene::initGL()
     GLLight Light(GL_LIGHT0);
 
     //modelTeapot->modelInit("player/player0.png",true);
-    plx->parallaxInit("1.jpg");
+    plx->parallaxInit("img/1.jpg");
     ply->playerInit();
     return true;
 }

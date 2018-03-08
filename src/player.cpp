@@ -52,19 +52,19 @@ void player::playerInit()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-    stand[0].bindTexture("player/play.png");
+    stand[0].bindTexture("img/player/play.png");
 
-    runText[0].bindTexture("player/player0.png");
-    runText[1].bindTexture("player/player1.png");
-    runText[2].bindTexture("player/player2.png");
-    runText[3].bindTexture("player/player3.png");
-    runText[4].bindTexture("player/player4.png");
-    runText[5].bindTexture("player/player5.png");
-    runText[6].bindTexture("player/player6.png");
-    runText[7].bindTexture("player/player7.png");
-    runText[8].bindTexture("player/player8.png");
-    runText[9].bindTexture("player/player9.png");
-    runText[10].bindTexture("player/player10.png");
+    runText[0].bindTexture("img/player/player0.png");
+    runText[1].bindTexture("img/player/player1.png");
+    runText[2].bindTexture("img/player/player2.png");
+    runText[3].bindTexture("img/player/player3.png");
+    runText[4].bindTexture("img/player/player4.png");
+    runText[5].bindTexture("img/player/player5.png");
+    runText[6].bindTexture("img/player/player6.png");
+    runText[7].bindTexture("img/player/player7.png");
+    runText[8].bindTexture("img/player/player8.png");
+    runText[9].bindTexture("img/player/player9.png");
+    runText[10].bindTexture("img/player/player10.png");
 }
 
 void player::actions(int action)
