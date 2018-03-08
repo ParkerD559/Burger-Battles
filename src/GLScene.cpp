@@ -33,11 +33,13 @@ GLint GLScene::initGL()
     glDepthFunc(GL_LEQUAL);
 
    // glEnable(GL_COLOR_MATERIAL);
+    //GLLight SetLight
     GLLight Light(GL_LIGHT0);
 
     //modelTeapot->modelInit("player/player0.png",true);
     plx->parallaxInit("img/1.jpg");
     ply->playerInit();
+    sky->loadTextures();
     return true;
 }
 
@@ -48,11 +50,16 @@ GLint GLScene::drawGLScene()
 
 
 
-    glPushMatrix();
+    /*glPushMatrix();
     glScaled(3.33,3.33,1.0);
         plx->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
-    plx->scroll(true,"right",0.005);
+    plx->scroll(true,"right",0.005);*/
+
+    glPushMatrix();
+        glScaled(3.33,3.33,3.330);
+        sky->drawBox();
+    glPopMatrix();
 
 
     glPushMatrix();

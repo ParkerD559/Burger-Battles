@@ -31,21 +31,58 @@ void skyBox::loadTextures()
 
 void skyBox::drawBox()
 {
+    //front
     tLoad[0].binder();
     glBegin(GL_QUADS);
+        glTexCoord2f(0.0,0.0);glVertex3f(-1.0,1.0,1.0);
+        glTexCoord2f(1.0,0.0);glVertex3f(1.0,1.0,1.0);
+        glTexCoord2f(1.0,1.0);glVertex3f(1.0,-1.0,1.0);
+        glTexCoord2f(0.0,0.0);glVertex3f(-1.0,-1.0,1.0);
+    glEnd();
 
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(-1.0,1.0,1.0);
+    //back
+    tLoad[1].binder();
+    glBegin(GL_QUADS);
+        glTexCoord2f(1.0,0.0);glVertex3f(-1.0,1.0,-1.0);
+        glTexCoord2f(1.0,1.0);glVertex3f(-1.0,-1.0,-1.0);
+        glTexCoord2f(0.0,1.0);glVertex3f(1.0,-1.0,-1.0);
+        glTexCoord2f(0.0,0.0);glVertex3f(1.0,1.0,-1.0);
+    glEnd();
 
-    glTexCoord2f(1.0,0.0);
-    glVertex3f(1.0,1.0,1.0);
+    //top
+    tLoad[2].binder();
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0,1.0);glVertex3f(1.0,1.0,-1.0);
+        glTexCoord2f(0.0,0.0);glVertex3f(1.0,1.0,1.0);
+        glTexCoord2f(1.0,0.0);glVertex3f(-1.0,1.0,1.0);
+        glTexCoord2f(1.0,1.0);glVertex3f(-1.0,1.0,-1.0);
+    glEnd();
 
-    glTexCoord2f(1.0,1.0);
-    glVertex3f(1.0,-1.0,1.0);
+    //bottom
+    tLoad[3].binder();
+    glBegin(GL_QUADS);
+        glTexCoord2f(1.0,1.0);glVertex3f(-1.0,-1.0,1.0);
+        glTexCoord2f(0.0,1.0);glVertex3f(1.0,-1.0,1.0);
+        glTexCoord2f(0.0,0.0);glVertex3f(1.0,-1.0,-1.0);
+        glTexCoord2f(1.0,0.0);glVertex3f(-1.0,-1.0,-1.0);
+    glEnd();
 
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(-1.0,-1.0,1.0);
+    //left
+    tLoad[4].binder();
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0,0.0);glVertex3f(-1.0,1.0,-1.0);
+        glTexCoord2f(1.0,0.0);glVertex3f(-1.0,1.0,1.0);
+        glTexCoord2f(1.0,1.0);glVertex3f(-1.0,-1.0,-1.0);
+        glTexCoord2f(0.0,1.0);glVertex3f(-1.0,-1.0,1.0);
+    glEnd();
 
+    //right
+    tLoad[5].binder();
+    glBegin(GL_QUADS);
+        glTexCoord2f(1.0,0.0);glVertex3f(1.0,1.0,-1.0);
+        glTexCoord2f(1.0,1.0);glVertex3f(1.0,-1.0,-1.0);
+        glTexCoord2f(0.0,1.0);glVertex3f(1.0,-1.0,1.0);
+        glTexCoord2f(0.0,0.0);glVertex3f(1.0,1.0,1.0);
     glEnd();
 }
 
