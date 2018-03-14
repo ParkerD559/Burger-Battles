@@ -173,3 +173,36 @@ void Inputs::keyUP(player* ply)
         default:break;
     }
 }
+void Inputs::keyPressed(skyBox* sky)
+{
+    switch(wParam)
+    {
+    case VK_LEFT:
+        sky->RotateY -= 0.5;
+        break;
+
+    case VK_RIGHT:
+        sky->RotateY += 0.5;
+        break;
+
+    case VK_DOWN:
+        sky->RotateX += 0.5;
+        break;
+
+    case VK_UP:
+        sky->RotateX -= 0.5;
+        break;
+    }
+}
+
+void Inputs::mouseMove(skyBox* sky, double x, double y)
+{
+    if(Mouse_Roatate)
+      {
+        sky->RotateY += (x-prev_Mouse_X)/3;
+        sky->RotateX += (y-prev_Mouse_Y)/3;
+
+        prev_Mouse_X =x;
+        prev_Mouse_Y =y;
+      }
+}

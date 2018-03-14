@@ -90,6 +90,7 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        KbMs->keyPressed(modelTeapot);
 	        KbMs->keyEnv(plx, 0.005);
 	        KbMs->keyPressed(ply);
+	        KbMs->keyPressed(sky);
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?
@@ -132,6 +133,7 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_MOUSEMOVE:
         {
              KbMs->mouseMove(modelTeapot, LOWORD(lParam),HIWORD(lParam));
+             KbMs->mouseMove(sky, LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
