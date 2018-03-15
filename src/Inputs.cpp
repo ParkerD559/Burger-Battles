@@ -1,5 +1,5 @@
 #include "Inputs.h"
-
+#include <player.h>
 
 Inputs::Inputs()
 {
@@ -72,6 +72,47 @@ void Inputs::keyPressed(Model* Mdl)
     }
 }
 
+void Inputs::keyUp(player* ply)
+{
+    ply->actionTrigger =1;
+
+    switch(wParam)
+    {
+       default:break;
+    }
+}
+
+
+void Inputs::keyPressed(player* ply)
+{
+    switch(wParam)
+    {
+     case VK_LEFT:
+       ply->actionTrigger =0;
+        break;
+
+    case VK_RIGHT:
+       ply->actionTrigger =1;
+        break;
+
+    case VK_DOWN:
+        ply->actionTrigger = 2;
+        break;
+
+    case VK_UP:
+        ply->actionTrigger = 3;
+        break;
+
+    case VK_ADD:
+
+        break;
+
+    case VK_SUBTRACT:
+
+        break;
+    }
+}
+
 
 void Inputs::keyUP()
 {
@@ -136,73 +177,36 @@ void Inputs::mouseMove(Model *Model,double x,double y)
         prev_Mouse_Y =y;
       }
 }
-void Inputs::keyPressed(player* ply)
-{
-    switch(wParam)
-    {
-    case VK_LEFT:
-        ply->actionTrigger= 0;
-        break;
-
-    case VK_RIGHT:
-        ply->actionTrigger = 1;
-        break;
-
-    case VK_DOWN:
-
-        break;
-
-    case VK_UP:
-
-        break;
-
-    case VK_ADD:
-
-        break;
-
-    case VK_SUBTRACT:
-
-        break;
-    }
-}
-void Inputs::keyUP(player* ply)
-{
-    ply->actionTrigger = 0;
-    switch(wParam)
-    {
-        default:break;
-    }
-}
 void Inputs::keyPressed(skyBox* sky)
 {
     switch(wParam)
     {
-    case VK_LEFT:
-        sky->RotateY -= 0.5;
+     case VK_LEFT:
+       sky->RotateY += 0.5;
         break;
 
     case VK_RIGHT:
-        sky->RotateY += 0.5;
+       sky->RotateY -= 0.5;
         break;
 
     case VK_DOWN:
-        sky->RotateX += 0.5;
+         sky->RotateX += 0.5;
         break;
 
     case VK_UP:
-        sky->RotateX -= 0.5;
+         sky->RotateX -= 0.5;
         break;
     }
 }
 
 void Inputs::mouseMove(skyBox* sky, double x, double y)
 {
-    if(Mouse_Roatate)
-      {
+
         sky->RotateY += (x-prev_Mouse_X)/3;
         sky->RotateX += (y-prev_Mouse_Y)/3;
 
         prev_Mouse_X =x;
         prev_Mouse_Y =y;
-      }
+
 }
+

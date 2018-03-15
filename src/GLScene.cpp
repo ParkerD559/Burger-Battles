@@ -4,13 +4,13 @@
 #include <Inputs.h>
 #include <parallax.h>
 #include <player.h>
-#include "skyBox.h"
+#include <skyBox.h>
 
 Model *modelTeapot = new Model();
 Inputs *KbMs = new Inputs();
 parallax *plx = new parallax();
 player *ply = new player();
-skyBox *sky = new skyBox();
+skyBox *sky = new skyBox;
 
 GLScene::GLScene()
 {
@@ -33,13 +33,14 @@ GLint GLScene::initGL()
     glDepthFunc(GL_LEQUAL);
 
    // glEnable(GL_COLOR_MATERIAL);
-    //GLLight SetLight
+    GLLight SetLight(GL_LIGHT0);
     GLLight Light(GL_LIGHT0);
 
-    //modelTeapot->modelInit("player/player0.png",true);
-    plx->parallaxInit("img/1.jpg");
+    modelTeapot->modelInit("images/player/player0.png",true);
+    plx->parallaxInit("images/bak.jpg");
     ply->playerInit();
     sky->loadTextures();
+
     return true;
 }
 
@@ -49,23 +50,27 @@ GLint GLScene::drawGLScene()
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
 
-
-    /*glPushMatrix();
+/*
+   glPushMatrix();
     glScaled(3.33,3.33,1.0);
         plx->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
-    plx->scroll(true,"right",0.005);*/
+   plx->scroll(true,"right",0.005);
+*/
+
 
     glPushMatrix();
-        glScaled(3.33,3.33,3.330);
-        sky->drawBox();
+    glDisable(GL_LIGHTING);
+    glScaled(200,200,200);
+       sky->drawBox();
+    glEnable(GL_LIGHTING);
     glPopMatrix();
 
-
-    glPushMatrix();
-      //modelTeapot->drawModel();
+	 glPushMatrix();
+     glTranslated(0,0,modelTeapot->Zoom);
      ply->actions(ply->actionTrigger);
      glPopMatrix();
+
 }
 
 GLvoid GLScene::resizeGLScene(GLsizei width, GLsizei height)
@@ -74,7 +79,7 @@ GLvoid GLScene::resizeGLScene(GLsizei width, GLsizei height)
    glViewport(0,0,width,height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(45.0,aspectRatio,0.1,100);
+   gluPerspective(45.0,aspectRatio,0.1,1000);
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
@@ -91,13 +96,14 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        KbMs->keyEnv(plx, 0.005);
 	        KbMs->keyPressed(ply);
 	        KbMs->keyPressed(sky);
+
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?
 		{
 			KbMs->wParam = wParam;
 			KbMs->keyUP();
-			KbMs->keyUP(ply);
+			KbMs->keyUp(ply);
 		break;								// Jump Back
 		}
 
@@ -133,7 +139,7 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_MOUSEMOVE:
         {
              KbMs->mouseMove(modelTeapot, LOWORD(lParam),HIWORD(lParam));
-             KbMs->mouseMove(sky, LOWORD(lParam),HIWORD(lParam));
+             KbMs->mouseMove(sky,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 

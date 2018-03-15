@@ -5,14 +5,12 @@
 #include<gl/gl.h>
 #include<textureLoader.h>
 
-
 typedef struct
 {
    float x;
    float y;
    float z;
 }vec;
-
 
 class player:Model
 {
@@ -26,7 +24,6 @@ class player:Model
         int runspeed;
         int jumpspeed;
         int actionTrigger;
-
 
         void drawPlayer();
         void playerInit();

@@ -45,8 +45,6 @@ void Model::drawModel()
     glRotated(RotateY,0,1,0);
     glRotated(RotateZ,0,0,1);
 
-
-
     glBegin(GL_QUADS);
 
     glTexCoord2f(0.0,1.0);

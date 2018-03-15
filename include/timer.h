@@ -1,35 +1,22 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef TEXTURELOADER_H
+#define TEXTURELOADER_H
 
-#include <time.h>
+#include<SOIL.h>
+#include<gl/gl.h>
 
-class timer
+class textureLoader
 {
     public:
-        timer();
-        virtual ~timer();
-
-        clock_t startedAt;
-        clock_t pausedAt;
-
-        bool started;
-        bool paused;
-
-        bool isStarted();
-        bool isStopped();
-        bool isPaused();
-
-        void pause();
-        void resume();
-        void start();
-        void stop();
-
-        void reset();
-        clock_t getTicks();
-
+        textureLoader();
+        virtual ~textureLoader();
+        void bindTexture(char *);
+        void binder();
+        unsigned char* image;
+        int width, height;
+        GLuint tex;
     protected:
 
     private:
 };
 
-#endif // TIMER_H
+#endif // TEXTURELOADER_H

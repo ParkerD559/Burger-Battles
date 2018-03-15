@@ -3,7 +3,7 @@
 
 #include <windows.h>
 
-#include<GL/glut.h>
+#include<gl/gl.h>
 #include<iostream>
 
 using namespace std;

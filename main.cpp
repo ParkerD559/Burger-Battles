@@ -10,7 +10,7 @@
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
-#include "GLScene.h"
+#include <GLScene.h>
 #include <stdlib.h>
 #include <iostream>
 #include <windows.h>		// Header File For Windows
@@ -128,8 +128,8 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		dmScreenSettings.dmFields=DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT;
 
 		dwExStyle=WS_EX_APPWINDOW;								// Window Extended Style
-		dwStyle= WS_POPUP;										// Windows Style
-		//ShowCursor(FALSE);									// Hide Mouse Pointer
+		dwStyle= WS_POPUP;			// must handle Gsync situations: Windows Style
+		ShowCursor(FALSE);									// Hide Mouse Pointer
 	}
 	else
 	{
@@ -241,7 +241,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 							WPARAM	wParam,			// Additional Message Information
 							LPARAM	lParam)			// Additional Message Information
 {
-    Scene->windMsg(hWnd, uMsg, wParam, lParam);
+    Scene->windMsg(hWnd,uMsg,wParam,lParam);
 	switch (uMsg)									// Check For Windows Messages
 	{
 		case WM_ACTIVATE:							// Watch For Window Activate Message
@@ -347,22 +347,16 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 		else										// If There Are No Messages
 		{
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
-		/*	if ((active && !Scene->drawGLScene()) || keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
+			if (keys[VK_ESCAPE])	// Active?  Was There A Quit Received?
 			{
 				done=TRUE;							// ESC or DrawGLScene Signalled A Quit
 			}
 			else									// Not Time To Quit, Update Screen
 			{
+			    Scene->drawGLScene();
 				SwapBuffers(hDC);					// Swap Buffers (Double Buffering)
 			}
-          */
 
-          if(keys[VK_ESCAPE])done=TRUE;
-
-          else{
-          Scene->drawGLScene();
-          SwapBuffers(hDC);
-          }
 			if (keys[VK_F1])						// Is F1 Being Pressed?
 			{
 				keys[VK_F1]=FALSE;					// If So Make Key FALSE
@@ -381,3 +375,4 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	KillGLWindow();									// Kill The Window
 	return (msg.wParam);							// Exit The Program
 }
+

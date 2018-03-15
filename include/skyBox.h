@@ -1,8 +1,8 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include "GL/gl.h"
-#include "TextureLoader.h"
+#include <gl/gl.h>
+#include<textureLoader.h>
 
 class skyBox
 {
@@ -16,7 +16,7 @@ class skyBox
         float height;
         float depth;
 
-        textureLoader tLoad[6];
+        GLuint tex[6];
 
         float RotateX;
         float RotateY;
