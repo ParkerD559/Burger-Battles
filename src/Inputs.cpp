@@ -1,11 +1,13 @@
 #include "Inputs.h"
 #include <player.h>
+#include <iostream>
 
 Inputs::Inputs()
 {
     //ctor
-   prev_Mouse_X =0;
-   prev_Mouse_Y =0;
+   prev_Mouse_X = GetSystemMetrics(SM_CXSCREEN) / 2;
+   prev_Mouse_Y = GetSystemMetrics(SM_CYSCREEN) / 2;
+   SetCursorPos(prev_Mouse_X, prev_Mouse_Y);
    Mouse_Translate=0;
    Mouse_Roatate=0;
 }
@@ -159,23 +161,22 @@ void Inputs::mouseWheel(Model *Model,double Delta)
 
 void Inputs::mouseMove(Model *Model,double x,double y)
 {
-      if(Mouse_Translate)
-      {
-       Model->Xpos += (x-prev_Mouse_X)/100;
-       Model->Ypos -= (y-prev_Mouse_Y)/100;
 
-       prev_Mouse_X =x;
-       prev_Mouse_Y =y;
-      }
+       Model->Xpos -= (x-prev_Mouse_X)/55;
+       Model->Ypos += (y-prev_Mouse_Y)/150;
 
-      if(Mouse_Roatate)
+       //prev_Mouse_X =x;
+       //prev_Mouse_Y =y;
+
+
+      /*if(Mouse_Roatate)
       {
         Model->RotateY += (x-prev_Mouse_X)/3;
         Model->RotateX += (y-prev_Mouse_Y)/3;
 
         prev_Mouse_X =x;
         prev_Mouse_Y =y;
-      }
+      }*/
 }
 void Inputs::keyPressed(skyBox* sky)
 {
@@ -201,9 +202,8 @@ void Inputs::keyPressed(skyBox* sky)
 
 void Inputs::mouseMove(skyBox* sky, double x, double y)
 {
-
-        sky->RotateY += (x-prev_Mouse_X)/3;
-        sky->RotateX += (y-prev_Mouse_Y)/3;
+        sky->RotateY += (x-prev_Mouse_X)/15;
+        sky->RotateX += (y-prev_Mouse_Y)/25;
 
         prev_Mouse_X =x;
         prev_Mouse_Y =y;

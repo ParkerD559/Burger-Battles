@@ -30,8 +30,8 @@ void skyBox::loadTextures()
    tLoad[1].bindTexture("images/Box/back.jpg");
    tLoad[2].bindTexture("images/Box/top.jpg");
    tLoad[3].bindTexture("images/Box/bottom.jpg");
-   tLoad[4].bindTexture("images/Box/left.jpg");
-   tLoad[5].bindTexture("images/Box/right.jpg");
+   tLoad[4].bindTexture("images/Box/back.jpg");
+   tLoad[5].bindTexture("images/Box/back.jpg");
 }
 
 void skyBox::drawBox()
@@ -59,10 +59,10 @@ void skyBox::drawBox()
     glBegin(GL_QUADS);
   // Back Face Y
   //  glNormal3f(0.0f, 0.0f, 1.0f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 2.0f,  1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 2.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-2.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-2.0f,  1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
     glEnd();
 
     tLoad[2].binder();// images are 2D arrays of pixels, bound to the GL_TEXTURE_2D target.
@@ -70,10 +70,10 @@ void skyBox::drawBox()
 
     // Top Face  X
  //  glNormal3f(0.0f, -1.0f, 0.0f);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.5f, -1.0f);  // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f,  1.5f,  1.0f);  // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f,  1.5f,  1.0f);  // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.5f, -1.0f);  // Top Right Of The Texture and Quad
     glEnd();
 
     tLoad[3].binder(); // images are 2D arrays of pixels, bound to the GL_TEXTURE_2D target.
@@ -91,10 +91,10 @@ void skyBox::drawBox()
     glBegin(GL_QUADS);
     // Right face  Y
  //   glNormal3f(-1.0f, 0.0f, 0.0f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Top Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f,  0.0f); glVertex3f( 1.0f,  1.0f,  0.0f);  // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f,  1.0f); glVertex3f( 1.0f, -1.0f,  0.0f);  // Top Right Of The Texture and Quad
+    glTexCoord2f(0.75f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
+    glTexCoord2f(0.75f, 0.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
 
     glEnd();
 
@@ -102,10 +102,10 @@ void skyBox::drawBox()
     glBegin(GL_QUADS);
      // Left Face  Y
    // glNormal3f(1.0f, 0.0f, 0.0f);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Top Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f,  0.0f); glVertex3f(-1.0f,  1.0f,  0.0f);  // Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.25f, 0.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.25f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f,  1.0f); glVertex3f(-1.0f, -1.0f,  0.0f);  // Top Left Of The Texture and Quad
 
     glEnd();
 }

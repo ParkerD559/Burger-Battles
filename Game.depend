@@ -699,7 +699,7 @@
 1519870657 source:c:\users\dhany\desktop\game2018\midtermcode\midterm\src\timer.cpp
 	"timer.h"
 
-1521318767 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\main.cpp
+1521323124 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\main.cpp
 	<windows.h>
 	<GLScene.h>
 	<stdlib.h>
@@ -717,7 +717,7 @@
 1521318768 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\include\gllight.h
 	<GLScene.h>
 
-1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\glscene.cpp
+1521402639 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\glscene.cpp
 	"GLScene.h"
 	<GLLight.h>
 	<Model.h>
@@ -725,10 +725,13 @@
 	<parallax.h>
 	<player.h>
 	<skyBox.h>
+	<cmath>
+	<random>
 
-1521318768 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\include\model.h
+1521397643 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\include\model.h
 	<windows.h>
 	<GL/glut.h>
+	<textureLoader.h>
 
 1521318764 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\common\inc\gl\glut.h
 	<windows.h>
@@ -765,13 +768,13 @@
 	<gl/gl.h>
 	<textureLoader.h>
 
-1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\inputs.cpp
+1521402122 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\inputs.cpp
 	"Inputs.h"
 	<player.h>
+	<iostream>
 
-1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\model.cpp
+1521397744 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\model.cpp
 	"Model.h"
-	<textureLoader.h>
 
 1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\parallax.cpp
 	"parallax.h"
@@ -785,11 +788,11 @@
 1521318768 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\include\timer.h
 	<time.h>
 
-1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\skybox.cpp
+1521395989 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\skybox.cpp
 	"skyBox.h"
 	<iostream>
 
-1521318769 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\textureloader.cpp
+1521390328 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\midterm\src\textureloader.cpp
 	<iostream>
 	"textureLoader.h"
 

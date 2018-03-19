@@ -1,7 +1,4 @@
 #include "Model.h"
-#include <textureLoader.h>
-
-textureLoader *tex = new textureLoader();
 
 Model::Model()
 {
@@ -18,11 +15,14 @@ Model::Model()
         verticies[1].x=1.0;verticies[1].y=0.0;verticies[1].z=1.0;
         verticies[2].x=1.0;verticies[2].y=1.0;verticies[2].z=1.0;
         verticies[3].x=0.0;verticies[3].y=1.0;verticies[3].z=1.0;
+
+        tex = new textureLoader();
 }
 
 Model::~Model()
 {
     //dtor
+    delete tex;
 }
 void Model::modelInit(char *fileName, bool trans)
 {
@@ -38,7 +38,6 @@ void Model::modelInit(char *fileName, bool trans)
 
 void Model::drawModel()
 {
-    glColor3f(0.8,0.5,0.0);
     tex->binder();
     glTranslated(Xpos,Ypos,Zoom);
     glRotated(RotateX,1,0,0);
