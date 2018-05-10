@@ -146,6 +146,18 @@ GLint GLScene::drawGLScene()
     //if (ene->enemyCounter <= 0) {
     if (*score >= 1) {
         ply->Xpos += speed*4;
+        glPushMatrix();
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
+            char buffer [100];
+            char *intToStr = itoa(*score, buffer, 10);
+            string counter = string(intToStr);
+            string currentScore = "Ammunition: " + counter;
+            glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glEnable(GL_LIGHTING);
         if (ply->Xpos >= .9) {
             sceneDone = true;
         }

@@ -5,9 +5,6 @@
 
 #include<gl/gl.h>
 #include<iostream>
-#include<parallax.h>
-#include <player.h>
-#include <enemy.h>
 #include <timer.h>
 
 using namespace std;

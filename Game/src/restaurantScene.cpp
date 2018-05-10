@@ -26,12 +26,12 @@ parallax *transitionplx = new parallax();
 timer *tim3 = new timer();
 
 
-restaurantScene::restaurantScene(int *score)
+restaurantScene::restaurantScene(int *scorecounter)
 {
     //ctor
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
-    this->score = score;
+    score = scorecounter;
     spatulaCounter = 1;
 }
 
@@ -44,11 +44,16 @@ GLvoid restaurantScene::resetScene() {
     delete modelPot; modelPot = new Model();
     delete restaurantKbMs; restaurantKbMs = new Inputs();
     delete restaurantPlx; restaurantPlx = new parallax();
+    delete transitionplx; transitionplx = new parallax();
     delete resturantPly; resturantPly = new player();
     delete restaurantSky; restaurantSky = new skyBox();
     delete cursor; cursor = new Model();
     delete rock; rock = new Model();
     delete gun; gun = new Model();
+    delete tim3; tim3 = new timer();
+    for (int i = 0; i < 3; i++) {
+        delete man[i]; man[i] = new Model();
+    }
     sceneDone = false;
 
 }
@@ -259,8 +264,6 @@ GLint restaurantScene::drawGLScene()
         glPopMatrix();
         //cout << rock->Ypos - man[1]->Ypos << endl;
         //man[0]->isCollided(rock);
-        if(!(rock->Ypos >1))
-            //cout << rock->Ypos << endl;
 
         glPushMatrix();
             glScaled(1.0, 1.0, 1.0);
@@ -299,8 +302,6 @@ GLint restaurantScene::drawGLScene()
         //cursor->drawModel();
     glPopMatrix();
 */
-
-    return true;
 }
 
 GLvoid restaurantScene::resizeGLScene(GLsizei width, GLsizei height)

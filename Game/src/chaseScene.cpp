@@ -1,11 +1,18 @@
 #include "ChaseScene.h"
-#include <GLLight.h>
+//#include <GLLight.h>
+#include <parallax.h>
+#include <player.h>
+#include <enemy.h>
+
 #include <Model.h>
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
 #include <stdarg.h>
 #include <variables.h>
+
+
+
 parallax *finalBackground = new parallax();
 player *burgerman = new player();
 enemy *bikeboi;
@@ -48,7 +55,7 @@ GLvoid ChaseScene::buildFont(int fontsize) {
 						CLIP_DEFAULT_PRECIS,			// Clipping Precision
 						ANTIALIASED_QUALITY,			// Output Quality
 						FF_DONTCARE|DEFAULT_PITCH,		// Family And Pitch
-						"Magneto");					    // Font Name
+						"Comic Sans MS");					    // Font Name
 
 	oldfont = (HFONT)SelectObject(hDC, font);           // Selects The Font We Want
 	wglUseFontBitmaps(hDC, 32, 96, base);				// Builds 96 Characters Starting At Character 32
@@ -92,13 +99,13 @@ GLint ChaseScene::initGL()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
-
+    buildFont(30);
    // glEnable(GL_COLOR_MATERIAL);
-    GLLight SetLight(GL_LIGHT0);
-    GLLight Light(GL_LIGHT0);
+    //GLLight SetLight(GL_LIGHT0);
+    //GLLight Light(GL_LIGHT0);
 
     finalBackground->parallaxInit("images/finalbackground.png");
-    /*
+
     biketextures[0].bindTexture("images/sprite_0.png");
     biketextures[1].bindTexture("images/sprite_1.png");
     timboi->start();
@@ -122,8 +129,8 @@ GLint ChaseScene::initGL()
     leftFry->Ypos = rightFry->Ypos = 0.0;
     leftFry->Zoom = rightFry->Zoom = -3.0;
     leftFry->set_scale(0.2, 0.2); rightFry->set_scale(0.2, 0.2);
-    */
-    buildFont(30);
+
+
     //spawns->start();
     return true;
 }
@@ -138,11 +145,14 @@ GLint ChaseScene::drawGLScene()
         finalBackground->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
     finalBackground->scroll(true,"up",0.0001);
+    if (timboi->getTicks() > 1000) {
+        sceneDone = true;
+    }
     glPushMatrix();
         glTranslatef(0.0f, 0.0f, -5.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
         glDisable(GL_LIGHTING);
-        glRasterPos2f(0.0f, 0.0f);                 // Position The Text On The Screen
+        glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
         char buffer [100];
         char *intToStr = itoa(*score, buffer, 10);
         string counter = string(intToStr);
@@ -154,7 +164,7 @@ GLint ChaseScene::drawGLScene()
 
 
 
-    /*
+
    glPushMatrix();
         if (movingLeft && burgerman->Xpos > -0.5) {
             burgerman->Xpos -= 0.01;
@@ -193,7 +203,7 @@ GLint ChaseScene::drawGLScene()
     glPushMatrix();
         rightFry->drawModel();
     glPopMatrix();
-    */
+
 }
 
 GLvoid ChaseScene::resizeGLScene(GLsizei width, GLsizei height)

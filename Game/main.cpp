@@ -18,6 +18,7 @@
 #include <windows.h>		// Header File For Windows
 #include <restaurantScene.h>
 #include <chaseScene.h>
+#include <chaseScene2.h>
 
 using namespace std;
 
@@ -484,34 +485,48 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 else if (currScene == help) {
                     helpScene->drawGLScene();
                     SwapBuffers(hDC);
-                }/*
-                else if (currScene == game) {
+                }
+                /*else if (currScene == game) {
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
                         marioScene->resetScene();
                         prevScene = currScene;
                         currScene = chase;
                         finalScene->initGL();
+                        //finalScene->drawGLScene();
+                    }
+                    SwapBuffers(hDC);
+                }
+                else if (currScene == chase) {
+                    finalScene->drawGLScene();
+                    if(finalScene->sceneDone) {
+                        finalScene->resetScene();
+                        prevScene = currScene;
+                        currScene = fps;
+                        fpsScene->initGL();
+                        //fpsScene->drawGLScene();
                     }
                     SwapBuffers(hDC);
                 }*/
                 else if (currScene == game) {
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
-                        marioScene->resetScene();
+                        //marioScene->resetScene();
                         prevScene = currScene;
                         currScene = fps;
                         fpsScene->initGL();
+                        fpsScene->drawGLScene();
                     }
                     SwapBuffers(hDC);
                 }
                 else if (currScene == fps) {
                     fpsScene->drawGLScene();
                     if (fpsScene->sceneDone) {
-                        fpsScene->resetScene();
+                        //fpsScene->resetScene();
                         prevScene = currScene;
                         currScene = chase;
                         finalScene->initGL();
+                        //finalScene->drawGLScene();
                     }
                     SwapBuffers(hDC);
                 }
