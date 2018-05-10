@@ -1554,7 +1554,7 @@
 	<gl/gl.h>
 	<iostream>
 
-1525919864 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\main.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\main.cpp
 	<windows.h>
 	<GLScene.h>
 	<mainMenu.h>
@@ -1565,39 +1565,39 @@
 	<windows.h>
 	<restaurantScene.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\glscene.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\glscene.h
 	<windows.h>
 	<gl/gl.h>
 	<iostream>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\mainmenu.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\mainmenu.h
 	<windows.h>
 	<gl/gl.h>
 	<iostream>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\landingscene.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\landingscene.h
 	<windows.h>
 	<gl/gl.h>
 	<iostream>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\helpscreen.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\helpscreen.h
 	<windows.h>
 	<gl/gl.h>
 	<iostream>
 
-1525924082 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\restaurantscene.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\restaurantscene.h
 	<windows.h>
 	<gl/gl.h>
 	<iostream>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\enemy.cpp
+1525924579 source:c:\users\camro\desktop\burger-battles-development\game\src\enemy.cpp
 	"enemy.h"
 	<timer.h>
 	<textureLoader.h>
 	<iostream>
 	<cmath>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\enemy.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\enemy.h
 	<Model.h>
 	<gl/gl.h>
 	<textureLoader.h>
@@ -1605,38 +1605,38 @@
 	<iostream>
 	<player.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\model.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\model.h
 	<windows.h>
 	<GL/glut.h>
 	<textureLoader.h>
 
-1525919860 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\common\inc\gl\glut.h
+1525919380 c:\users\camro\desktop\burger-battles-development\common\inc\gl\glut.h
 	<windows.h>
 	<stdlib.h>
 	<GL/gl.h>
 	<GL/glu.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\textureloader.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\textureloader.h
 	<SOIL.h>
 	<gl/gl.h>
 
-1525919860 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\common\inc\soil.h
+1525919380 c:\users\camro\desktop\burger-battles-development\common\inc\soil.h
 
-1525919998 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\player.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\player.h
 	<Model.h>
 	<gl/gl.h>
 	<textureLoader.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\timer.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\timer.h
 	<time.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\gllight.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\gllight.cpp
 	"GLLight.h"
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\gllight.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\gllight.h
 	<GLScene.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\glscene.cpp
+1525924133 source:c:\users\camro\desktop\burger-battles-development\game\src\glscene.cpp
 	"GLScene.h"
 	<GLLight.h>
 	<Model.h>
@@ -1650,8 +1650,9 @@
 	<math.h>
 	<stdarg.h>
 	<variables.h>
+	<sidecar.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\inputs.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\inputs.h
 	<windows.h>
 	<iostream>
 	<Model.h>
@@ -1663,60 +1664,59 @@
 	<landingScene.h>
 	<mainMenu.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\parallax.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\parallax.h
 	<iostream>
 	<string.h>
 	<gl/gl.h>
 	<windows.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\skybox.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\skybox.h
 	<gl/gl.h>
 	<textureLoader.h>
 
-1525919864 c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\include\variables.h
+1525919380 c:\users\camro\desktop\burger-battles-development\game\include\variables.h
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\helpscreen.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\helpscreen.cpp
 	"helpScreen.h"
 	<GLLight.h>
 	<Inputs.h>
 	<parallax.h>
 	<timer.h>
 
-1525921258 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\inputs.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\inputs.cpp
 	"Inputs.h"
 	<player.h>
-	<cmath>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\landingscene.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\landingscene.cpp
 	"landingScene.h"
 	<GLLight.h>
 	<Inputs.h>
 	<parallax.h>
 	<timer.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\mainmenu.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\mainmenu.cpp
 	"mainMenu.h"
 	<GLLight.h>
 	<Inputs.h>
 	<parallax.h>
 	<timer.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\model.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\model.cpp
 	"Model.h"
 	<textureLoader.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\parallax.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\parallax.cpp
 	"parallax.h"
 	<textureLoader.h>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\player.cpp
+1525925293 source:c:\users\camro\desktop\burger-battles-development\game\src\player.cpp
 	<player.h>
 	<timer.h>
 	<textureLoader.h>
 	<iostream>
 	<string>
 
-1525920531 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\restaurantscene.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\restaurantscene.cpp
 	"restaurantScene.h"
 	<Model.h>
 	<Inputs.h>
@@ -1725,14 +1725,29 @@
 	<skyBox.h>
 	<cmath>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\skybox.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\skybox.cpp
 	"skyBox.h"
 	<iostream>
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\textureloader.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\textureloader.cpp
 	<iostream>
 	"textureLoader.h"
 
-1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\timer.cpp
+1525919380 source:c:\users\camro\desktop\burger-battles-development\game\src\timer.cpp
 	"timer.h"
+
+1525924365 source:c:\users\camro\desktop\burger-battles-development\game\src\sidecar.cpp
+	"sidecar.h"
+	<timer.h>
+	<textureLoader.h>
+	<iostream>
+	<cmath>
+
+1525922312 c:\users\camro\desktop\burger-battles-development\game\include\sidecar.h
+	<Model.h>
+	<gl/gl.h>
+	<textureLoader.h>
+	<string.h>
+	<iostream>
+	<player.h>
 

@@ -26,7 +26,7 @@ player::player()
     actionTrigger =0;
     runTrigger = 0;
     jumpTrigger = 0;
-    jumpLoc = 0;
+    jumpLoc = -.1;
     Xpos = -.3;
     Ypos = -.3;
     startY = -.3;
@@ -132,7 +132,7 @@ void player::actions(int &action)
 
             //jumpLoc is 0, why?
 
-            if(T->getTicks()>10){
+            //if(T->getTicks()>10){
 
                 if(airT->getTicks() <= 350)
                 {
@@ -146,8 +146,8 @@ void player::actions(int &action)
                 jumpspeed++;
                 jumpspeed = runspeed %10;
 `               */
-                T->reset();
-            }
+                //T->reset();
+            //}
             if(Ypos < startY)
                 Ypos = startY;
 
