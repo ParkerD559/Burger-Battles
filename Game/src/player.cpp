@@ -12,6 +12,7 @@ timer *airT = new timer();
 textureLoader runText[8];
 textureLoader stand[2];
 textureLoader jump[17];
+textureLoader rTT2[2];
 
 player::player()
 {
@@ -80,6 +81,9 @@ void player::playerInit()
     runText[7].bindTexture("images/burger/sprite_8.png");
 
     jump[0].bindTexture("images/burger/jump/sprite_07.png");
+
+    rTT2[0].bindTexture("images/topBurger0.png");
+    rTT2[1].bindTexture("images/topBurger1.png");
 
 }
 
@@ -178,7 +182,30 @@ void player::actions(int &action)
             glPopMatrix();
 
           break;
+   case 3:
+       glPushMatrix();
+       glTranslated(Xpos,Ypos,0);
+        //Ypos = startY;
+       if(T->getTicks()>200){
 
+        runspeed++;
+        runspeed = runspeed %2;
+        T->reset();
+       }
+
+       rTT2[runspeed].binder();
+       drawPlayer();
+
+       glPopMatrix();
+       break;
    }
 
+}
+void player::set_scale(float x, float y)
+{
+
+    verticies[1].x*=x;
+    verticies[2].x*=x;
+    verticies[2].y*=y;
+    verticies[3].y*=y;
 }

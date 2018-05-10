@@ -54,7 +54,7 @@ void enemy::drawEnemy()
 
 }
 
-void enemy::enemyInit()
+void enemy::enemyInit(char* file)
 {
 
 
@@ -62,7 +62,7 @@ void enemy::enemyInit()
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     tim->start();
     enemyText->binder();
-    enemyText->bindTexture("images/pixelfries.png");
+    enemyText->bindTexture(file);
 }
 
 void enemy::deleteEnemy()
@@ -119,4 +119,11 @@ bool enemy::isCollided(player *ply)
             */
         return false;
 }
+void enemy::set_scale(float x, float y)
+{
 
+    verticies[1].x*=x;
+    verticies[2].x*=x;
+    verticies[2].y*=y;
+    verticies[3].y*=y;
+}

@@ -1,43 +1,35 @@
-#include "GLScene.h"
+#include "ChaseScene.h"
 #include <GLLight.h>
 #include <Model.h>
-#include <Inputs.h>
-#include <parallax.h>
-#include <player.h>
-#include <skyBox.h>
-#include <enemy.h>
-#include <timer.h>
 #include <stdio.h>
 #include <math.h>
+#include <cstdlib>
 #include <stdarg.h>
 #include <variables.h>
-#include <sidecar.h>
+parallax *finalBackground = new parallax();
+        player *burgerman = new player();
+        enemy *bikeboi;
+        textureLoader biketextures[2];
+        timer *bikertim = new timer();
+        int bikerticks;
+        Model* leftFry = new Model();
+        Model* rightFry = new Model();
 
-Model *modelTeapot = new Model();
-Inputs *KbMs = new Inputs();
-parallax *plx = new parallax();
-player *ply = new player();
-skyBox *sky = new skyBox;
-enemy *ene;
-timer *scenetim = new timer();
-//timer *spawns = new timer();
-sidecar *car = new sidecar();
-
-GLScene::GLScene(int* scorecounter)
+ChaseScene::ChaseScene(int* scorecounter)
 {
     //ctor
     score = scorecounter;
-    ene = new enemy(score);
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
-    sceneDone = false;
+    bikeboi = new enemy(score);
+    timboi = new timer();
 }
 
-GLScene::~GLScene()
+ChaseScene::~ChaseScene()
 {
     //dtor
 }
-GLvoid GLScene::buildFont() {
+GLvoid ChaseScene::buildFont() {
     HFONT	font;										// Windows Font ID
 	HFONT	oldfont;									// Used For Good House Keeping
 
@@ -64,11 +56,11 @@ GLvoid GLScene::buildFont() {
     DeleteObject(font);
 }
 
-GLvoid GLScene::killFont() {
+GLvoid ChaseScene::killFont() {
     glDeleteLists(base, 96);
 }
 
-GLvoid GLScene::glPrint(const char *fmt, ...) {
+GLvoid ChaseScene::glPrint(const char *fmt, ...) {
     char text[256];
     va_list ap;
     if (fmt == NULL)
@@ -85,19 +77,15 @@ GLvoid GLScene::glPrint(const char *fmt, ...) {
 }
 
 
-GLvoid GLScene::resetScene() {
-        delete modelTeapot; modelTeapot = new Model();
-        delete KbMs; KbMs = new Inputs();
-        delete plx; plx = new parallax();
-        delete ply; ply = new player();
-        delete sky; sky = new skyBox();
-        delete ene; ene = new enemy(score);
-        delete scenetim; scenetim = new timer();
+GLvoid ChaseScene::resetScene() {
+        delete finalBackground; finalBackground = new parallax();
+        delete burgerman; burgerman = new player();
+        delete bikeboi; bikeboi = new enemy(score);
 }
 
-GLint GLScene::initGL()
+GLint ChaseScene::initGL()
 {
-    scenetim->start();
+    srand(time(NULL));
     glShadeModel(GL_SMOOTH);
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glClearDepth(1.0f);
@@ -109,19 +97,37 @@ GLint GLScene::initGL()
     GLLight SetLight(GL_LIGHT0);
     GLLight Light(GL_LIGHT0);
 
-    modelTeapot->modelInit("images/player/player0.png",true);
-    plx->parallaxInit("images/city_life.png");
+    finalBackground->parallaxInit("images/finalbackground.png");
 
-    ply->playerInit();
-    sky->loadTextures();
-    ene->enemyInit("images/pixelfries.png");
-    car->sidecarInit();
+    biketextures[0].bindTexture("images/sprite_0.png");
+    biketextures[1].bindTexture("images/sprite_1.png");
+    timboi->start();
+    bikertim->start();
+    bikerticks = (rand() % 2000) + 500;
+
+    burgerman->playerInit();
+    burgerman->Xpos = 0.0;
+    burgerman->Ypos = -0.35;
+    burgerman->Zoom = -4.0;
+        burgerman->set_scale(2.0, 2.0);
+    bikeboi->enemyInit("images/sprite_0.png");
+    bikeboi->Ypos = 0.1;
+    bikeboi->Zoom = -4.0;
+    bikeboi->set_scale(2.0, 2.0);
+
+    leftFry->modelInit("images/fry.png", true);
+    rightFry->modelInit("images/fry.png", true);
+    leftFry->Xpos = rightFry->Xpos = 100.0;
+    leftFry->Ypos = rightFry->Ypos = 0.0;
+    leftFry->Zoom = rightFry->Zoom = -3.0;
+    leftFry->set_scale(0.2, 0.2); rightFry->set_scale(0.2, 0.2);
+
     buildFont();
     //spawns->start();
     return true;
 }
 
-GLint GLScene::drawGLScene()
+GLint ChaseScene::drawGLScene()
 {
    // srand(time(NULL));
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
@@ -129,8 +135,8 @@ GLint GLScene::drawGLScene()
 
     glPushMatrix();
         glTranslatef(0.0f, 0.0f, -5.0f);
-        glColor3f(0.0f, 0.0f, 0.0f);
-        glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glRasterPos2f(0.0f, 0.0f);                 // Position The Text On The Screen
         char buffer [100];
         char *intToStr = itoa(*score, buffer, 10);
         string counter = string(intToStr);
@@ -140,47 +146,52 @@ GLint GLScene::drawGLScene()
 
     glPushMatrix();
         glScaled(3.33,3.33,1.0);
-        plx->drawSquare(screenWidth,screenHeight);
+        finalBackground->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
 
+   finalBackground->scroll(true,"up",0.0001);
 
-    bool running;
-    if(ply->runTrigger > 0)
-        running = true;
-    else
-        running = false;
-    //float speed = (i >= 1000) ? 0 : (screenWidth/screenHeight)/(screenWidth/3);
-    float speed = (screenWidth/screenHeight)/(screenWidth/3);
-    if (*this->score >= 200) {
-        ply->Xpos += speed*4;
-        if (ply->Xpos >= .9) {
-            sceneDone = true;
+   glPushMatrix();
+        if (movingLeft && burgerman->Xpos > -0.5) {
+            burgerman->Xpos -= 0.01;
+        } else if (movingRight && burgerman->Xpos < 0.3) {
+            burgerman->Xpos += 0.01;
         }
-    }
-    else {
-       plx->scroll(running,"right",speed);
-    }
+    int a = 3;
+        burgerman->actions(a);
+    glPopMatrix();
 
     glPushMatrix();
-        ply->actions(ply->actionTrigger);
+        if (bikerLeft && bikeboi->Xpos > -0.5) {
+            bikeboi->Xpos -= 0.005;
+        } else if (bikerRight && bikeboi->Xpos < 0.3) {
+            bikeboi->Xpos += 0.005;
+        }
+        if (bikertim->getTicks() > bikerticks) {
+            if (bikerLeft) {
+                bikerRight = true;
+                bikerLeft = false;
+            } else {
+                bikerLeft = true;
+                bikerRight = false;
+            }
+            bikerticks = (rand() % 1300) + 100;
+            bikertim->reset();
+        }
+        glTranslated(bikeboi->Xpos, bikeboi->Ypos, 0);
+        bikeboi->drawEnemy();
     glPopMatrix();
 
-    if(ply->runTrigger == 1){
-        glPushMatrix();
-            ene->enemyScroll(ply);
+    glPushMatrix();
+        leftFry->drawModel();
+    glPopMatrix();
 
-        glPopMatrix();
-    }
-
-    if(ply->runTrigger == 1 && *this->score < 200){
-        glPushMatrix();
-            car->sidecarScroll(ply);
-        glPopMatrix();
-    }
-
+    glPushMatrix();
+        rightFry->drawModel();
+    glPopMatrix();
 }
 
-GLvoid GLScene::resizeGLScene(GLsizei width, GLsizei height)
+GLvoid ChaseScene::resizeGLScene(GLsizei width, GLsizei height)
 {
    GLfloat aspectRatio = (GLfloat)width/(GLfloat)height;
    glViewport(0,0,width,height);
@@ -192,46 +203,45 @@ GLvoid GLScene::resizeGLScene(GLsizei width, GLsizei height)
    glLoadIdentity();
 }
 
-int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+int ChaseScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)									// Check For Windows Messages
 	{
 
 	    case WM_KEYDOWN:
-	        KbMs->wParam = wParam;
-	        KbMs->keyPressed(modelTeapot);
-	        KbMs->keyEnv(plx, 0.0005);
-	        KbMs->keyPressed(ply);
-	        KbMs->keyPressed(sky);
-
+	        if (wParam == VK_LEFT) {
+                movingLeft = true;
+                movingRight = false;
+	        } else if (wParam == VK_RIGHT) {
+                movingRight = true;
+                movingLeft = false;
+	        } else if (wParam == VK_SPACE) {
+                leftFry->Xpos = rightFry->Xpos = 0.0;
+	        }
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?
 		{
-			KbMs->wParam = wParam;
-			KbMs->keyUP();
-			KbMs->keyUp(ply);
+		    if (wParam == VK_LEFT) {
+		        movingLeft = false;
+		    } else if (wParam == VK_RIGHT) {
+		        movingRight = false;
+		    }
 		break;								// Jump Back
 		}
 
 		case WM_LBUTTONDOWN:
         {
-            KbMs->wParam = wParam;
-            KbMs->mouseEventDown(modelTeapot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
    		case WM_RBUTTONDOWN:
         {
-            KbMs->wParam = wParam;
-            KbMs->mouseEventDown(modelTeapot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
           case WM_MBUTTONDOWN:
         {
-            KbMs->wParam = wParam;
-            KbMs->mouseEventDown(modelTeapot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
@@ -239,20 +249,16 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_RBUTTONUP:
         case WM_MBUTTONUP:
         {
-            KbMs->mouseEventUp();
         break;								// Jump Back
         }
 
         case WM_MOUSEMOVE:
         {
-             KbMs->mouseMove(modelTeapot, LOWORD(lParam),HIWORD(lParam));
-             KbMs->mouseMove(sky,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
         case WM_MOUSEWHEEL:
         {
-            KbMs->mouseWheel(modelTeapot,(double)GET_WHEEL_DELTA_WPARAM(wParam));
         break;								// Jump Back
         }
 }

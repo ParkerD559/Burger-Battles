@@ -1,4 +1,3 @@
-
 #pragma once
 
 #ifdef _WIN32
@@ -18,10 +17,11 @@
 #include <iostream>
 #include <windows.h>		// Header File For Windows
 #include <restaurantScene.h>
+#include <chaseScene.h>
 
 using namespace std;
 
-enum gScenes {landing, mainmenu, game, fps, help };
+enum gScenes { landing, mainmenu, game, fps, help, chase };
 gScenes currScene = landing;
 gScenes prevScene = landing;
 HDC			hDC=NULL;		// Private GDI Device Context
@@ -35,11 +35,13 @@ bool	fullscreen=TRUE;	// Fullscreen Flag Set To Fullscreen Mode By Default
 
 LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
 
+int i = 0;
 restaurantScene *fpsScene = new restaurantScene();
 landingScene *landScene = new landingScene();
 mainMenu *menuScene = new mainMenu();
 helpScreen *helpScene = new helpScreen();
-GLScene *marioScene = new GLScene();
+GLScene *marioScene = new GLScene(&i);
+ChaseScene *finalScene = new ChaseScene(&i);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,6 +277,15 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		return FALSE;								// Return FALSE
         }
 	}
+	else if (currScene == chase) {
+        finalScene->resizeGLScene(width, height);			// Set Up Our Perspective GL Screen
+        if (!finalScene->initGL())							// Initialize Our Newly Created GL Window
+        {
+		KillGLWindow();								// Reset The Display
+		MessageBox(NULL,"Initialization Failed.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+		return FALSE;								// Return FALSE
+        }
+	}
 
 	return TRUE;									// Success
 }
@@ -303,6 +314,9 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
     }
     else if (currScene == fps) {
         fpsScene->windMsg(hWnd,uMsg,wParam,lParam);
+    }
+    else if (currScene == chase) {
+        finalScene->windMsg(hWnd,uMsg,wParam,lParam);
     }
     //Scene->windMsg(hWnd,uMsg,wParam,lParam);
 	switch (uMsg)									// Check For Windows Messages
@@ -371,6 +385,9 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
             }
             else if (currScene == fps) {
                 fpsScene->resizeGLScene(LOWORD(lParam),HIWORD(lParam));			// Set Up Our Perspective GL Screen
+            }
+            else if (currScene == chase) {
+                finalScene->resizeGLScene(LOWORD(lParam),HIWORD(lParam));			// Set Up Our Perspective GL Screen
             }
 			return 0;								// Jump Back
 		}
@@ -472,13 +489,19 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 else if (currScene == game) {
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
-                        currScene = fps;
-                        fpsScene->initGL();
+                            /** CHANGE AFTER DONE **/
+                        currScene = chase;
+                        finalScene->initGL();
+
                     }
                     SwapBuffers(hDC);
                 }
                 else if (currScene == fps) {
                     fpsScene->drawGLScene();
+                    SwapBuffers(hDC);
+                }
+                else if (currScene == chase) {
+                    finalScene->drawGLScene();
                     SwapBuffers(hDC);
                 }
 			}
@@ -529,19 +552,12 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
             if (keys['H']) {                       //Draws help scene on 'H' if on main menu
                 keys['H'] = FALSE;
                 cout << "Current in " << currScene << ", the H Key was pressed, changing to help scene"<< endl;
-                if (currScene == mainmenu || currScene == game) {
-                    if (currScene == mainmenu) {
-                        prevScene = mainmenu;
-                    }
-                    else {
-                        prevScene = game;
-                    }
-                    helpScene->initGL();
-                    helpScene->drawGLScene();
-                    SwapBuffers(hDC);
-                    currScene = help;
-                    cout << currScene << endl;
-                }
+                prevScene = currScene;
+                helpScene->initGL();
+                helpScene->drawGLScene();
+                SwapBuffers(hDC);
+                currScene = help;
+                cout << currScene << endl;
             }
             if (keys['E']) {                        //Exits game on 'E' if on main menu
                 cout << "Current in " << currScene << ", the letter E was pressed, exiting... " << endl;
@@ -578,4 +594,3 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	KillGLWindow();									// Kill The Window
 	return (msg.wParam);							// Exit The Program
 }
-

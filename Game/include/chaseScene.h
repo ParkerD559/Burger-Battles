@@ -1,18 +1,22 @@
-#ifndef GLSCENE_H
-#define GLSCENE_H
+#ifndef CHASESCENE_H
+#define CHASESCENE_H
 
 #include <windows.h>
 
 #include<gl/gl.h>
 #include<iostream>
+#include<parallax.h>
+#include <player.h>
+#include <enemy.h>
+#include <timer.h>
 
 using namespace std;
 
-class GLScene
+class ChaseScene
 {
     public:
-        GLScene(int* scorecounter);
-        virtual ~GLScene();
+        ChaseScene(int* scorecounter);
+        virtual ~ChaseScene();
         GLint initGL();
         GLint drawGLScene();
         GLvoid resizeGLScene(GLsizei, GLsizei);
@@ -37,6 +41,12 @@ class GLScene
 
     private:
         int* score;
+        bool movingLeft;
+        bool movingRight;
+        bool bikerLeft;
+        bool bikerRight;
+        int enemyrun;
+        timer *timboi = new timer();
 };
 
-#endif // GLSCENE_H
+#endif // CHASESCENE_H

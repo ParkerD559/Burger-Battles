@@ -99,31 +99,6 @@ GLint restaurantScene::drawGLScene()
         resturantPly->actions(resturantPly->actionTrigger);
     glPopMatrix();
 */
-   glPushMatrix();
-        //glScalef(0.2, 0.2, 1);
-        //glTranslated(0, 0, rock->Zoom);
-        if (shotMoving) {
-            rock->Ypos += 0.01;
-
-        }
-        if (rock->Ypos > .4) {
-            shotMoving = false;
-            rock->Ypos = 1000;
-        }
-        rock->drawModel();
-    glPopMatrix();
-
-    glPushMatrix();
-        glScaled(1.0, 1.0, 1.0);
-        if (gunMoveLeft && (gun->Xpos > -.75)) {
-            gun->Xpos -= 0.01;
-        } else if (gunMoveRight && (gun->Xpos < .5)) {
-            gun->Xpos += 0.01;
-        }
-        //glScalef(0.2, 0.2, 1);
-        //glTranslated(0, gun->Ypos, gun->Zoom);
-        gun->drawModel();
-    glPopMatrix();
 
     for (int i = 0; i < 5; i++) {
         man[i]->Ypos -= rand() % 1000 * 0.000005;
@@ -161,48 +136,25 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 
 	    case WM_KEYDOWN:
-	        if (wParam == VK_LEFT) {
-                gunMoveLeft = true;
-	        } else if (wParam == VK_RIGHT) {
-	            gunMoveRight = true;
-	        } else if (wParam == VK_SPACE && !shotMoving) {
-                rock->Xpos = gun->Xpos;
-                rock->Ypos = gun->Ypos;
-                shotMoving = true;
-            }
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?
 		{
-			restaurantKbMs->wParam = wParam;
-			restaurantKbMs->keyUP();
-			restaurantKbMs->keyUp(resturantPly);
 		break;								// Jump Back
 		}
 
 		case WM_LBUTTONDOWN:
         {
-            restaurantKbMs->wParam = wParam;
-            restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
-            if ((rock->Xpos > 50.0) && (rock->Ypos > 50.0)){
-                rock->Xpos = cursor->Xpos;
-                rock->Ypos = cursor->Ypos;
-                rock->Zoom = 0.0;
-            }
         break;								// Jump Back
         }
 
    		case WM_RBUTTONDOWN:
         {
-            restaurantKbMs->wParam = wParam;
-            restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
           case WM_MBUTTONDOWN:
         {
-            restaurantKbMs->wParam = wParam;
-            restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
@@ -210,23 +162,16 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_RBUTTONUP:
         case WM_MBUTTONUP:
         {
-            restaurantKbMs->mouseEventUp();
         break;								// Jump Back
         }
 
         case WM_MOUSEMOVE:
         {
-             restaurantKbMs->mouseMove(rock, LOWORD(lParam), HIWORD(lParam));
-             for(int i = 0; i < 5; i++) {
-                restaurantKbMs->mouseMove(man[i], LOWORD(lParam),HIWORD(lParam));
-             }
-             restaurantKbMs->mouseMove(restaurantSky,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
         case WM_MOUSEWHEEL:
         {
-            restaurantKbMs->mouseWheel(modelPot,(double)GET_WHEEL_DELTA_WPARAM(wParam));
         break;								// Jump Back
         }
 }

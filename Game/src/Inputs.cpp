@@ -219,4 +219,3 @@ void Inputs::mouseMove(skyBox* sky, double x, double y)
         prev_Mouse_Y =y;
 
 }
-

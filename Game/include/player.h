@@ -40,6 +40,8 @@ class player:public Model
         bool goingup;
         bool goingdown;
 
+        void set_scale(float x, float y);
+
     protected:
 
     private:
