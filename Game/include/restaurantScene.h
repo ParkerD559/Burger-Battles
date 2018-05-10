@@ -26,6 +26,9 @@ class restaurantScene
     protected:
 
     private:
+        bool gunMoveLeft = false;
+        bool gunMoveRight = false;
+        bool shotMoving = false;
 };
 
 #endif // RESTAURANTSCENE_H

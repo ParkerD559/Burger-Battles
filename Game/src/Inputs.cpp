@@ -1,5 +1,6 @@
 #include "Inputs.h"
 #include <player.h>
+#include <cmath>
 
 Inputs::Inputs()
 {
@@ -178,14 +179,11 @@ void Inputs::mouseMove(Model *Model,double x,double y)
        prev_Mouse_Y =y;
       }
 
-      if(Mouse_Roatate)
-      {
-        Model->RotateY += (x-prev_Mouse_X)/3;
-        Model->RotateX += (y-prev_Mouse_Y)/3;
+        Model->RotateX = -15.0;
+        Model->RotateZ = atan(y/x) * (180.0 / 3.14159);
 
         prev_Mouse_X =x;
         prev_Mouse_Y =y;
-      }
 }
 void Inputs::keyPressed(skyBox* sky)
 {
