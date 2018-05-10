@@ -30,9 +30,10 @@ class enemy:public Model{
         float ypos;
         void drawEnemy();
         void deleteEnemy();
-        void enemyInit();
+        void enemyInit(char* file);
         void enemyScroll(player* ply);
         bool isCollided(player*);
+        void set_scale(float x, float y);
         int  enemyCounter;
 
     protected:

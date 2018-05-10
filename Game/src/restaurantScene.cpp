@@ -340,7 +340,7 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        } else if (wParam == VK_RIGHT) {
 	            gunMoveRight = false;
 	        }
-		break;								// Jump Back
+		      break;								// Jump Back
 		}
 
 		case WM_LBUTTONDOWN:
@@ -350,15 +350,15 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
    		case WM_RBUTTONDOWN:
         {
-            restaurantKbMs->wParam = wParam;
-            restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
+          restaurantKbMs->wParam = wParam;
+          restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
           case WM_MBUTTONDOWN:
         {
-            restaurantKbMs->wParam = wParam;
-            restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
+          restaurantKbMs->wParam = wParam;
+          restaurantKbMs->mouseEventDown(modelPot,LOWORD(lParam),HIWORD(lParam));
         break;								// Jump Back
         }
 
@@ -372,13 +372,11 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_MOUSEMOVE:
         {
-
         break;								// Jump Back
         }
 
         case WM_MOUSEWHEEL:
         {
-            restaurantKbMs->mouseWheel(modelPot,(double)GET_WHEEL_DELTA_WPARAM(wParam));
         break;								// Jump Back
         }
 }

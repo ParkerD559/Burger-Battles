@@ -23,11 +23,13 @@ timer *scenetim = new timer();
 //timer *spawns = new timer();
 sidecar *car = new sidecar();
 
+
 GLScene::GLScene(int* score)
 {
     //ctor
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
+    sceneDone = false;
     this->score = score;
     ene = new enemy(score);
 }
@@ -116,7 +118,7 @@ GLint GLScene::initGL()
 
     ply->playerInit();
     sky->loadTextures();
-    ene->enemyInit();
+    ene->enemyInit("images/pixelfries.png");
     car->sidecarInit();
     buildFont(30);
     //spawns->start();
@@ -127,9 +129,7 @@ GLint GLScene::drawGLScene()
 {
    // srand(time(NULL));
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-	glLoadIdentity();									// Reset The Current Modelview Matrix
-
-
+	  glLoadIdentity();									// Reset The Current Modelview Matrix
     glPushMatrix();
         glScaled(3.33,3.33,1.0);
         plx->drawSquare(screenWidth,screenHeight);
@@ -142,6 +142,7 @@ GLint GLScene::drawGLScene()
     else
         running = false;
     float speed = (screenWidth/screenHeight)/(screenWidth/3);
+
     //if (ene->enemyCounter <= 0) {
     if (*score >= 1) {
         ply->Xpos += speed*4;
@@ -178,8 +179,6 @@ GLint GLScene::drawGLScene()
         plx->scroll(running,"right",speed);
     }
 
-
-
     glPushMatrix();
         ply->actions(ply->actionTrigger);
     glPopMatrix();
@@ -190,6 +189,7 @@ GLint GLScene::drawGLScene()
 
         glPopMatrix();
     }
+
 
     if(ply->runTrigger == 1 && ene->enemyCounter > 0){
         glPushMatrix();

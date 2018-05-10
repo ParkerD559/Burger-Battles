@@ -1,4 +1,3 @@
-
 #pragma once
 
 #ifdef _WIN32
@@ -18,10 +17,13 @@
 #include <iostream>
 #include <windows.h>		// Header File For Windows
 #include <restaurantScene.h>
+#include <chaseScene.h>
 
 using namespace std;
 
-enum gScenes {landing, mainmenu, game, fps, finalstage, help};
+
+enum gScenes { landing, mainmenu, game, fps, help, chase };
+
 gScenes currScene = landing;
 gScenes prevScene = landing;
 HDC			hDC=NULL;		// Private GDI Device Context
@@ -41,7 +43,7 @@ landingScene *landScene = new landingScene();
 mainMenu *menuScene = new mainMenu();
 helpScreen *helpScene = new helpScreen();
 GLScene *marioScene = new GLScene(&i);
-
+ChaseScene *finalScene = new ChaseScene(&i);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //										THE KILL GL WINDOW
@@ -276,6 +278,15 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 		return FALSE;								// Return FALSE
         }
 	}
+	else if (currScene == chase) {
+        finalScene->resizeGLScene(width, height);			// Set Up Our Perspective GL Screen
+        if (!finalScene->initGL())							// Initialize Our Newly Created GL Window
+        {
+		KillGLWindow();								// Reset The Display
+		MessageBox(NULL,"Initialization Failed.","ERROR",MB_OK|MB_ICONEXCLAMATION);
+		return FALSE;								// Return FALSE
+        }
+	}
 
 	return TRUE;									// Success
 }
@@ -304,6 +315,9 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
     }
     else if (currScene == fps) {
         fpsScene->windMsg(hWnd,uMsg,wParam,lParam);
+    }
+    else if (currScene == chase) {
+        finalScene->windMsg(hWnd,uMsg,wParam,lParam);
     }
     //Scene->windMsg(hWnd,uMsg,wParam,lParam);
 	switch (uMsg)									// Check For Windows Messages
@@ -372,6 +386,9 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
             }
             else if (currScene == fps) {
                 fpsScene->resizeGLScene(LOWORD(lParam),HIWORD(lParam));			// Set Up Our Perspective GL Screen
+            }
+            else if (currScene == chase) {
+                finalScene->resizeGLScene(LOWORD(lParam),HIWORD(lParam));			// Set Up Our Perspective GL Screen
             }
 			return 0;								// Jump Back
 		}
@@ -483,9 +500,13 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                     if (fpsScene->sceneDone) {
                         fpsScene->resetScene();
                         prevScene = currScene;
-                        currScene = game;
-                        marioScene->initGL();
+                        currScene = chase;
+                        finalScene->initGL();
                     }
+                    SwapBuffers(hDC);
+                }
+                else if (currScene == chase) {
+                    finalScene->drawGLScene();
                     SwapBuffers(hDC);
                 }
 			}
@@ -592,4 +613,3 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	KillGLWindow();									// Kill The Window
 	return (msg.wParam);							// Exit The Program
 }
-
