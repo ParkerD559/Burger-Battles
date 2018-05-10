@@ -33,9 +33,10 @@ class enemy:public Model{
         void enemyInit(char* file);
         void enemyScroll(player* ply);
         bool isCollided(player*);
+        bool isCollided(Model*);
         void set_scale(float x, float y);
         int  enemyCounter;
-
+        int health;
     protected:
 
     private:

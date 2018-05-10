@@ -21,10 +21,11 @@ enemy::enemy(int *score)
     srand(time(0));
     Xpos = .9;
     Ypos = 0;
+    health = 3;
     //Ypos = ((double)(rand()%250)/1000*-1)-.05;
     runSpeed = .01;
     this->score = score;
-    enemyCounter = 10;
+    enemyCounter = rand()%(11)+10;
 }
 
 enemy::~enemy()
@@ -108,7 +109,7 @@ bool enemy::isCollided(player *ply)
     if (xdistance < .05 && ydistance < .05)
     {
         //cout << "COLLISION" << endl;
-            *score += 10;
+            *score += 5;
             return true;
     }
     /*
@@ -128,4 +129,23 @@ void enemy::set_scale(float x, float y)
     verticies[2].x*=x;
     verticies[2].y*=y;
     verticies[3].y*=y;
+}
+bool enemy::isCollided(Model* mdl)
+{
+    float xdistance = abs(mdl->Xpos-Xpos);
+
+    float ydistance = abs(mdl->Ypos-Ypos);
+
+    //cout << mdl->Xpos << endl;;
+    //cout << "x distance " << xdistance << endl;
+    //if(ydistance < 20)
+      //  cout << "y distance " << ydistance << endl;
+    if (xdistance < .04 && ydistance < .1)
+    {
+        //cout << "COLLISION" << endl;
+            health--;
+            cout << health;
+            return true;
+    }
+        return false;
 }

@@ -34,6 +34,7 @@ class ChaseScene
         float screenHeight;
         float screenWidth;
         bool  sceneDone;
+        bool victory = false;
     protected:
 
     private:

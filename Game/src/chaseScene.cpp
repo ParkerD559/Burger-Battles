@@ -20,7 +20,7 @@ enemy *bikeboi;
 timer *bikertim = new timer();
 int bikerticks;
 Model* leftFry = new Model();
-Model* rightFry = new Model();
+timer * failTimer = new timer();
 
 ChaseScene::ChaseScene(int* scorecounter)
 {
@@ -125,11 +125,11 @@ GLint ChaseScene::initGL()
     bikeboi->set_scale(2.0, 2.0);
 
     leftFry->modelInit("images/fry.png", true);
-    rightFry->modelInit("images/fry.png", true);
-    leftFry->Xpos = rightFry->Xpos = 100.0;
-    leftFry->Ypos = rightFry->Ypos = 0.0;
-    leftFry->Zoom = rightFry->Zoom = -2.0;
-    leftFry->set_scale(0.2, 0.2); rightFry->set_scale(0.2, 0.2);
+
+    leftFry->Xpos  = 100.0;
+    leftFry->Ypos  = 0.0;
+    leftFry->Zoom  = -2.0;
+    leftFry->set_scale(0.2, 0.2);
 
 
     //spawns->start();
@@ -141,11 +141,12 @@ GLint ChaseScene::drawGLScene()
    // srand(time(NULL));
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix
+
     glPushMatrix();
         glScaled(3.33,3.33,1.0);
         finalBackground->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
-    finalBackground->scroll(true,"up",0.0001);
+    finalBackground->scroll(true,"up",0.01);
     glPushMatrix();
         glTranslatef(0.0f, 0.0f, -5.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
@@ -160,6 +161,41 @@ GLint ChaseScene::drawGLScene()
     glEnable(GL_LIGHTING);
 
 
+    if(*score <= -1 && bikeboi->health > 0 ) {
+        glPushMatrix();
+            buildFont(100);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -2.0f);
+            glRasterPos2f(-.5f, 0.1f);                         // Position The Text On The Screen
+            glPrint("OUT OF AMMO", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glPushMatrix();
+            buildFont(100);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -2.0f);
+            glRasterPos2f(-.5f, -0.15f);                         // Position The Text On The Screen
+            glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        failTimer->start();
+        if(failTimer->getTicks() > 3000)
+            sceneDone = true;
+    }
+    if(bikeboi->health <= 0 ) {
+        glPushMatrix();
+            buildFont(100);
+            glColor3f(0.0f, 255.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -2.0f);
+            glRasterPos2f(-.5f, 0.1f);                         // Position The Text On The Screen
+            glPrint("YOU WON", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+
+        failTimer->start();
+        if(failTimer->getTicks() > 3000)
+            sceneDone = true;
+    }
    glPushMatrix();
         if (movingLeft && burgerman->Xpos > -0.5) {
             burgerman->Xpos -= 0.01;
@@ -169,6 +205,24 @@ GLint ChaseScene::drawGLScene()
     int a = 3;
         burgerman->actions(a);
     glPopMatrix();
+
+glPushMatrix();
+        if(shotMoving) {
+            leftFry->Ypos += 0.02;
+        }
+        if(leftFry->Ypos > .4) {
+            shotMoving = false;
+            leftFry->Ypos = 1000.0;
+        }
+        if(bikeboi->isCollided(leftFry))
+        {
+            shotMoving = false;
+            leftFry->Ypos = 1000.0;
+        }
+        leftFry->drawModel();
+    glPopMatrix();
+
+
 
     glPushMatrix();
         if (bikerLeft && bikeboi->Xpos > -0.5) {
@@ -188,29 +242,8 @@ GLint ChaseScene::drawGLScene()
             bikertim->reset();
         }
         glTranslated(bikeboi->Xpos, bikeboi->Ypos, 0);
-        bikeboi->drawEnemy();
-    glPopMatrix();
-
-    glPushMatrix();
-        if(shotMoving) {
-            leftFry->Ypos += 0.01;
-        }
-        if(leftFry->Ypos > .4) {
-            shotMoving = false;
-            leftFry->Ypos = 1000.0;
-        }
-        leftFry->drawModel();
-    glPopMatrix();
-
-    glPushMatrix();
-        if(shotMoving) {
-            rightFry->Ypos += 0.01;
-        }
-        if(rightFry->Ypos > .4) {
-            shotMoving = false;
-            rightFry->Ypos = 1000.0;
-        }
-        rightFry->drawModel();
+        if(bikeboi->health > 0)
+            bikeboi->drawEnemy();
     glPopMatrix();
 
 }
@@ -239,12 +272,13 @@ int ChaseScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        } else if (wParam == VK_RIGHT) {
                 movingRight = true;
                 movingLeft = false;
-	        } else if (wParam == VK_SPACE & !shotMoving) {
-                leftFry->Xpos = burgerman->Xpos - .05;
-                rightFry->Xpos = burgerman->Xpos + .05;
-                leftFry->Ypos = rightFry->Ypos = burgerman->Ypos;
-                shotMoving = true;
-                *score = *score - 2;
+	        } else if (wParam == VK_SPACE & !shotMoving && *score >-1) {
+                leftFry->Xpos = burgerman->Xpos;
+
+                leftFry->Ypos =  burgerman->Ypos;
+                if(*score >0)
+                    shotMoving = true;
+                *score = *score - 1;
 	        }
 	    break;
 

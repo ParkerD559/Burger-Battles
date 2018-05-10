@@ -143,8 +143,8 @@ GLint GLScene::drawGLScene()
         running = false;
     float speed = (screenWidth/screenHeight)/(screenWidth/3);
 
-    //if (ene->enemyCounter <= 0) {
-    if (*score >= 1) {
+    if (ene->enemyCounter <= 0) {
+    //if (*score >= 1) {
         ply->Xpos += speed*4;
         glPushMatrix();
             glTranslatef(0.0f, 0.0f, -5.0f);

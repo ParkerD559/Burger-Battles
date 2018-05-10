@@ -32,7 +32,7 @@ restaurantScene::restaurantScene(int *scorecounter)
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     score = scorecounter;
-    spatulaCounter = 1;
+    spatulaCounter = rand()%(11)+10;
 }
 
 restaurantScene::~restaurantScene()
