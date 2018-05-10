@@ -13,35 +13,36 @@
 #include <variables.h>
 #include <sidecar.h>
 
-int i = 100;
 Model *modelTeapot = new Model();
 Inputs *KbMs = new Inputs();
 parallax *plx = new parallax();
 player *ply = new player();
 skyBox *sky = new skyBox;
-enemy *ene = new enemy(&i);
+enemy *ene;
 timer *scenetim = new timer();
 //timer *spawns = new timer();
 sidecar *car = new sidecar();
 
-GLScene::GLScene(bool reset)
+GLScene::GLScene(int* score)
 {
     //ctor
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
+    this->score = score;
+    ene = new enemy(score);
 }
 
 GLScene::~GLScene()
 {
     //dtor
 }
-GLvoid GLScene::buildFont() {
+GLvoid GLScene::buildFont(int fontsize) {
     HFONT	font;										// Windows Font ID
 	HFONT	oldfont;									// Used For Good House Keeping
 
 	base = glGenLists(96);								// Storage For 96 Characters
 
-	font = CreateFont(	24,							    // Height Of Font
+	font = CreateFont(	fontsize,							    // Height Of Font
 						0,								// Width Of Font
 						0,								// Angle Of Escapement
 						0,								// Orientation Angle
@@ -54,7 +55,7 @@ GLvoid GLScene::buildFont() {
 						CLIP_DEFAULT_PRECIS,			// Clipping Precision
 						ANTIALIASED_QUALITY,			// Output Quality
 						FF_DONTCARE|DEFAULT_PITCH,		// Family And Pitch
-						"Magneto");					    // Font Name
+						"Comic Sans MS");					    // Font Name
 
 	oldfont = (HFONT)SelectObject(hDC, font);           // Selects The Font We Want
 	wglUseFontBitmaps(hDC, 32, 96, base);				// Builds 96 Characters Starting At Character 32
@@ -84,13 +85,16 @@ GLvoid GLScene::glPrint(const char *fmt, ...) {
 
 
 GLvoid GLScene::resetScene() {
+
         delete modelTeapot; modelTeapot = new Model();
         delete KbMs; KbMs = new Inputs();
         delete plx; plx = new parallax();
         delete ply; ply = new player();
         delete sky; sky = new skyBox();
-        delete ene; ene = new enemy(&i);
+        delete ene; ene = new enemy(score);
         delete scenetim; scenetim = new timer();
+        delete car; car = new sidecar();
+        *score = 0;
 }
 
 GLint GLScene::initGL()
@@ -114,7 +118,7 @@ GLint GLScene::initGL()
     sky->loadTextures();
     ene->enemyInit();
     car->sidecarInit();
-    buildFont();
+    buildFont(30);
     //spawns->start();
     return true;
 }
@@ -125,16 +129,6 @@ GLint GLScene::drawGLScene()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
-    glPushMatrix();
-        glTranslatef(0.0f, 0.0f, -5.0f);
-        glColor3f(0.0f, 0.0f, 0.0f);
-        glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
-        char buffer [100];
-        char *intToStr = itoa(i, buffer, 10);
-        string counter = string(intToStr);
-        string score = "Current Score: " + counter;
-        glPrint(score.c_str(), cnt1);	// Print GL Text To The Screen
-    glPopMatrix();
 
     glPushMatrix();
         glScaled(3.33,3.33,1.0);
@@ -147,16 +141,51 @@ GLint GLScene::drawGLScene()
         running = true;
     else
         running = false;
-    //float speed = (i >= 1000) ? 0 : (screenWidth/screenHeight)/(screenWidth/3);
     float speed = (screenWidth/screenHeight)/(screenWidth/3);
-    if (i >= 200) {
+    if (ene->enemyCounter <= 0) {
         ply->Xpos += speed*4;
         if (ply->Xpos >= .9) {
             sceneDone = true;
         }
     }
+    else if (car->isCollided(ply)) {
+        ply->runTrigger = 0;
+        plx->scroll(running, "right", 0.0);
+        ply->actionTrigger = 0;
+        glPushMatrix();
+            buildFont(100);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-1.9f, 0.0f);                 // Position The Text On The Screen
+            glPrint("YOU DIED A FAILURE", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glPushMatrix();
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-1.3f, -0.6f);                 // Position The Text On The Screen
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            char buffer[100];
+            char *intToStr = itoa(*score, buffer, 10);
+            string counter = string(intToStr);
+            string currentScore = "Final Score: " + counter;
+            glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+    }
     else {
-       plx->scroll(running,"right",speed);
+        glPushMatrix();
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
+            char buffer [100];
+            char *intToStr = itoa(*score, buffer, 10);
+            string counter = string(intToStr);
+            string currentScore = "Current Score: " + counter;
+            glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glEnable(GL_LIGHTING);
+        plx->scroll(running,"right",speed);
     }
 
 
@@ -172,7 +201,7 @@ GLint GLScene::drawGLScene()
         glPopMatrix();
     }
 
-    if(ply->runTrigger == 1 && i < 200){
+    if(ply->runTrigger == 1 && ene->enemyCounter > 0){
         glPushMatrix();
             car->sidecarScroll(ply);
         glPopMatrix();

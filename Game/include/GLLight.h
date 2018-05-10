@@ -2,7 +2,7 @@
 #define GLLIGHT_H
 #include<GLScene.h>
 
-class GLLight:GLScene
+class GLLight
 {
     public:
         GLLight(GLenum Light);

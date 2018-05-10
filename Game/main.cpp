@@ -35,11 +35,12 @@ bool	fullscreen=TRUE;	// Fullscreen Flag Set To Fullscreen Mode By Default
 
 LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
 
-restaurantScene *fpsScene = new restaurantScene();
+int i = 0;
+restaurantScene *fpsScene = new restaurantScene(&i);
 landingScene *landScene = new landingScene();
 mainMenu *menuScene = new mainMenu();
 helpScreen *helpScene = new helpScreen();
-GLScene *marioScene = new GLScene();
+GLScene *marioScene = new GLScene(&i);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,12 +444,12 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 //MessageBox escape = MessageBox(NULL, "Would you like to go to the Main Menu?", "Back to Main Menu",
 			    if (MessageBox(NULL,"Would you like to Quit and go back to the Main Menu?", "Quit to Main Menu",MB_YESNO) == IDYES) {
                     keys[VK_ESCAPE]=FALSE;
-                    currScene = mainmenu;
-                    prevScene = mainmenu;
+                    prevScene = currScene;
                     marioScene->resetScene();
                     SwapBuffers(hDC);
                     menuScene->initGL(); //OTHERWISE JUST RESUMES GAME. WUT
                     menuScene->drawGLScene();
+                    currScene = mainmenu;
                     SwapBuffers(hDC);
 			    }
 			    else {

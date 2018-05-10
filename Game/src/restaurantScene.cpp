@@ -13,12 +13,12 @@ Inputs *restaurantKbMs = new Inputs();
 parallax *restaurantPlx = new parallax();
 player *resturantPly = new player();
 skyBox *restaurantSky = new skyBox();
-Model *man[5] = { new Model(), new Model(), new Model(), new Model(), new Model() };
+Model *man[3] = { new Model(), new Model(), new Model()};
 Model *cursor = new Model();
 Model *rock = new Model();
 Model *gun = new Model();
 
-restaurantScene::restaurantScene()
+restaurantScene::restaurantScene(int *score)
 {
     //ctor
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
@@ -49,11 +49,11 @@ GLint restaurantScene::initGL()
     resturantPly->playerInit();
     restaurantSky->loadTextures();
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < 3; i++) {
         man[i]->modelInit("images/spatula.png", true);
-        man[i]->Zoom = -8.;
-        man[i]->Ypos = 5.;
-        man[i]->Xpos = (i * 4.0) - 10.0;
+        man[i]->Zoom = -2.;
+        man[i]->Ypos = .6;
+        man[i]->Xpos = (i * .5) - .8;
     }
 
     cursor->modelInit("images/cursor.png", true);
@@ -125,7 +125,7 @@ GLint restaurantScene::drawGLScene()
         gun->drawModel();
     glPopMatrix();
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
         man[i]->Ypos -= rand() % 1000 * 0.000005;
         glPushMatrix();
             glScaled(1, 1, 1);

@@ -11,7 +11,7 @@ using namespace std;
 class restaurantScene
 {
     public:
-        restaurantScene();
+        restaurantScene(int *);
         virtual ~restaurantScene();
         GLint initGL();
         GLint drawGLScene();
@@ -29,6 +29,7 @@ class restaurantScene
         bool gunMoveLeft = false;
         bool gunMoveRight = false;
         bool shotMoving = false;
+        int *score;
 };
 
 #endif // RESTAURANTSCENE_H

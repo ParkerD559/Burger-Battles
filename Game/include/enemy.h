@@ -33,6 +33,7 @@ class enemy:public Model{
         void enemyInit();
         void enemyScroll(player* ply);
         bool isCollided(player*);
+        int  enemyCounter;
 
     protected:
 
