@@ -25,7 +25,7 @@ class ChaseScene
         int windMsg(HWND,UINT, WPARAM,LPARAM);
 
         //Font
-        GLvoid buildFont();
+        GLvoid buildFont(int);
         GLvoid killFont();
         GLvoid glPrint(const char *, ...);
         GLuint base;

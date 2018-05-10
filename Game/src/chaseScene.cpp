@@ -7,13 +7,13 @@
 #include <stdarg.h>
 #include <variables.h>
 parallax *finalBackground = new parallax();
-        player *burgerman = new player();
-        enemy *bikeboi;
-        textureLoader biketextures[2];
-        timer *bikertim = new timer();
-        int bikerticks;
-        Model* leftFry = new Model();
-        Model* rightFry = new Model();
+player *burgerman = new player();
+enemy *bikeboi;
+textureLoader biketextures[2];
+timer *bikertim = new timer();
+int bikerticks;
+Model* leftFry = new Model();
+Model* rightFry = new Model();
 
 ChaseScene::ChaseScene(int* scorecounter)
 {
@@ -29,13 +29,13 @@ ChaseScene::~ChaseScene()
 {
     //dtor
 }
-GLvoid ChaseScene::buildFont() {
+GLvoid ChaseScene::buildFont(int fontsize) {
     HFONT	font;										// Windows Font ID
 	HFONT	oldfont;									// Used For Good House Keeping
 
 	base = glGenLists(96);								// Storage For 96 Characters
 
-	font = CreateFont(	24,							    // Height Of Font
+	font = CreateFont(	fontsize,							    // Height Of Font
 						0,								// Width Of Font
 						0,								// Angle Of Escapement
 						0,								// Orientation Angle
@@ -98,7 +98,7 @@ GLint ChaseScene::initGL()
     GLLight Light(GL_LIGHT0);
 
     finalBackground->parallaxInit("images/finalbackground.png");
-
+    /*
     biketextures[0].bindTexture("images/sprite_0.png");
     biketextures[1].bindTexture("images/sprite_1.png");
     timboi->start();
@@ -109,7 +109,8 @@ GLint ChaseScene::initGL()
     burgerman->Xpos = 0.0;
     burgerman->Ypos = -0.35;
     burgerman->Zoom = -4.0;
-        burgerman->set_scale(2.0, 2.0);
+    burgerman->set_scale(2.0, 2.0);
+
     bikeboi->enemyInit("images/sprite_0.png");
     bikeboi->Ypos = 0.1;
     bikeboi->Zoom = -4.0;
@@ -121,8 +122,8 @@ GLint ChaseScene::initGL()
     leftFry->Ypos = rightFry->Ypos = 0.0;
     leftFry->Zoom = rightFry->Zoom = -3.0;
     leftFry->set_scale(0.2, 0.2); rightFry->set_scale(0.2, 0.2);
-
-    buildFont();
+    */
+    buildFont(30);
     //spawns->start();
     return true;
 }
@@ -132,25 +133,28 @@ GLint ChaseScene::drawGLScene()
    // srand(time(NULL));
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 	glLoadIdentity();									// Reset The Current Modelview Matrix
-
-    glPushMatrix();
-        glTranslatef(0.0f, 0.0f, -5.0f);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glRasterPos2f(0.0f, 0.0f);                 // Position The Text On The Screen
-        char buffer [100];
-        char *intToStr = itoa(*score, buffer, 10);
-        string counter = string(intToStr);
-        string score = "Current Score: " + counter;
-        glPrint(score.c_str(), cnt1);	// Print GL Text To The Screen
-    glPopMatrix();
-
     glPushMatrix();
         glScaled(3.33,3.33,1.0);
         finalBackground->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
+    finalBackground->scroll(true,"up",0.0001);
+    glPushMatrix();
+        glTranslatef(0.0f, 0.0f, -5.0f);
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glDisable(GL_LIGHTING);
+        glRasterPos2f(0.0f, 0.0f);                 // Position The Text On The Screen
+        char buffer [100];
+        char *intToStr = itoa(*score, buffer, 10);
+        string counter = string(intToStr);
+        string hello = "Ammunition " + counter;
+        glPrint(hello.c_str(), cnt1);	// Print GL Text To The Screen
+    glPopMatrix();
+    glEnable(GL_LIGHTING);
 
-   finalBackground->scroll(true,"up",0.0001);
 
+
+
+    /*
    glPushMatrix();
         if (movingLeft && burgerman->Xpos > -0.5) {
             burgerman->Xpos -= 0.01;
@@ -189,6 +193,7 @@ GLint ChaseScene::drawGLScene()
     glPushMatrix();
         rightFry->drawModel();
     glPopMatrix();
+    */
 }
 
 GLvoid ChaseScene::resizeGLScene(GLsizei width, GLsizei height)

@@ -484,7 +484,17 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 else if (currScene == help) {
                     helpScene->drawGLScene();
                     SwapBuffers(hDC);
-                }
+                }/*
+                else if (currScene == game) {
+                    marioScene->drawGLScene();
+                    if (marioScene->sceneDone) {
+                        marioScene->resetScene();
+                        prevScene = currScene;
+                        currScene = chase;
+                        finalScene->initGL();
+                    }
+                    SwapBuffers(hDC);
+                }*/
                 else if (currScene == game) {
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
