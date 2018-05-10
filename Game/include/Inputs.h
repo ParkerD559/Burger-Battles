@@ -11,6 +11,7 @@
 #include <helpScreen.h>
 #include <landingScene.h>
 #include <mainMenu.h>
+#include <sounds.h>
 
 class Inputs
 {
@@ -38,7 +39,7 @@ class Inputs
         bool Mouse_Translate;
         bool Mouse_Roatate;
         WPARAM wParam;
-
+        void keySound(sounds *);
     protected:
 
     private:

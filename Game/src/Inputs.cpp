@@ -219,3 +219,30 @@ void Inputs::mouseMove(skyBox* sky, double x, double y)
         prev_Mouse_Y =y;
 
 }
+
+void Inputs::keySound(sounds* snds)
+{
+     switch(wParam)
+    {
+      case VK_SPACE:
+          snds->playSound("sounds/shooting.mp3", false);
+
+      break;
+      case VK_TAB:
+          if (snds->isPlaying == false) {
+            snds->playMusic("sounds/music.mp3", true);
+            snds->isPlaying = true;
+          }
+          else {
+            snds->pauseSounds(true);
+            //snds->stopAllSounds();
+            snds->isPlaying = false;
+
+          }
+      break;
+      case VK_UP:
+        snds->playSound("sounds/jumping.mp3", false);
+        break;
+    }
+
+}

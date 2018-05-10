@@ -3,16 +3,17 @@
 #include <parallax.h>
 #include <player.h>
 #include <enemy.h>
-
+#include <sounds.h>
 #include <Model.h>
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
 #include <stdarg.h>
 #include <variables.h>
+#include <Inputs.h>
 
-
-
+Inputs *finalKbMs = new Inputs();
+sounds *finalsound = new sounds();
 parallax *finalBackground = new parallax();
 player *burgerman = new player();
 enemy *bikeboi;
@@ -111,7 +112,7 @@ GLint ChaseScene::initGL()
     timboi->start();
     bikertim->start();
     bikerticks = (rand() % 2000) + 500;
-
+    finalsound->initSounds();
     burgerman->playerInit();
     burgerman->Xpos = 0.0;
     burgerman->Ypos = -0.35;
@@ -266,6 +267,7 @@ int ChaseScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 
 	    case WM_KEYDOWN:
+	        finalKbMs->wParam = wParam;
 	        if (wParam == VK_LEFT) {
                 movingLeft = true;
                 movingRight = false;
@@ -280,6 +282,7 @@ int ChaseScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     shotMoving = true;
                 *score = *score - 1;
 	        }
+	        finalKbMs->keySound(finalsound);
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?

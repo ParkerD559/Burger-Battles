@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <variables.h>
+#include <sounds.h>
 #include <sidecar.h>
 
 Model *modelTeapot = new Model();
@@ -22,7 +23,7 @@ enemy *ene;
 timer *scenetim = new timer();
 //timer *spawns = new timer();
 sidecar *car = new sidecar();
-
+sounds *snds = new sounds();
 
 GLScene::GLScene(int* score)
 {
@@ -120,7 +121,10 @@ GLint GLScene::initGL()
     sky->loadTextures();
     ene->enemyInit("images/pixelfries.png");
     car->sidecarInit();
+    snds->initSounds();
     buildFont(30);
+    snds->playMusic("sounds/music.mp3", true);
+    snds->isPlaying = true;
     //spawns->start();
     return true;
 }
@@ -166,6 +170,8 @@ GLint GLScene::drawGLScene()
         ply->runTrigger = 0;
         plx->scroll(running, "right", 0.0);
         ply->actionTrigger = 0;
+        snds->pauseSounds(true);
+        snds->playSound("sounds/death.mp3",false);
         glPushMatrix();
             buildFont(150);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -173,6 +179,14 @@ GLint GLScene::drawGLScene()
             glTranslatef(0.0f, 0.0f, -5.0f);
             glRasterPos2f(-2.5f, 0.0f);                 // Position The Text On The Screen
             glPrint("YOU DIED A FAILURE", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glPushMatrix();
+            buildFont(50);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-2.0f, -0.5f);                 // Position The Text On The Screen
+            glPrint("Press Esc to return to main menu", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
     }
     else {
@@ -234,6 +248,7 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        KbMs->keyEnv(plx, 0.0005);
 	        KbMs->keyPressed(ply);
 	        KbMs->keyPressed(sky);
+	        KbMs->keySound(snds);
 
 	    break;
 
