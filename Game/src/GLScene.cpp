@@ -94,7 +94,7 @@ GLvoid GLScene::resetScene() {
         delete ene; ene = new enemy(score);
         delete scenetim; scenetim = new timer();
         delete car; car = new sidecar();
-        *score = 0;
+        sceneDone = false;
 }
 
 GLint GLScene::initGL()
@@ -142,7 +142,8 @@ GLint GLScene::drawGLScene()
     else
         running = false;
     float speed = (screenWidth/screenHeight)/(screenWidth/3);
-    if (ene->enemyCounter <= 0) {
+    //if (ene->enemyCounter <= 0) {
+    if (*score >= 1) {
         ply->Xpos += speed*4;
         if (ply->Xpos >= .9) {
             sceneDone = true;
@@ -153,23 +154,12 @@ GLint GLScene::drawGLScene()
         plx->scroll(running, "right", 0.0);
         ply->actionTrigger = 0;
         glPushMatrix();
-            buildFont(100);
+            buildFont(150);
             glColor3f(255.0f, 0.0f, 0.0f);
             glDisable(GL_LIGHTING);
             glTranslatef(0.0f, 0.0f, -5.0f);
-            glRasterPos2f(-1.9f, 0.0f);                 // Position The Text On The Screen
+            glRasterPos2f(-2.5f, 0.0f);                 // Position The Text On The Screen
             glPrint("YOU DIED A FAILURE", cnt1);	// Print GL Text To The Screen
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(0.0f, 0.0f, -5.0f);
-            glRasterPos2f(-1.3f, -0.6f);                 // Position The Text On The Screen
-            glColor3f(0.0f, 0.0f, 0.0f);
-            glDisable(GL_LIGHTING);
-            char buffer[100];
-            char *intToStr = itoa(*score, buffer, 10);
-            string counter = string(intToStr);
-            string currentScore = "Final Score: " + counter;
-            glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
         glPopMatrix();
     }
     else {
@@ -181,19 +171,8 @@ GLint GLScene::drawGLScene()
             char buffer [100];
             char *intToStr = itoa(*score, buffer, 10);
             string counter = string(intToStr);
-            string currentScore = "Current Score: " + counter;
+            string currentScore = "Ammunition: " + counter;
             glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(0.0f, 0.0f, -5.0f);
-            glColor3f(0.0f, 0.0f, 0.0f);
-            glDisable(GL_LIGHTING);
-            glRasterPos2f(2.2f, 1.7f);                 // Position The Text On The Screen
-            int ammo = *score/20;
-            intToStr = itoa(ammo, buffer, 10);
-            counter = string(intToStr);
-            string currentAmmo = "Ammunition: " + counter;
-            glPrint(currentAmmo.c_str(), cnt1);	// Print GL Text To The Screen
         glPopMatrix();
         glEnable(GL_LIGHTING);
         plx->scroll(running,"right",speed);

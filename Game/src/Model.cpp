@@ -19,6 +19,7 @@ Model::Model()
         verticies[2].x=1.0;verticies[2].y=1.0;verticies[2].z=1.0;
         verticies[3].x=0.0;verticies[3].y=1.0;verticies[3].z=1.0;
         tex = new textureLoader();
+        alreadyScaled = false;
 }
 
 Model::~Model()
@@ -69,9 +70,11 @@ void Model::drawModel()
 }
 void Model::set_scale(float x, float y)
 {
-
-    verticies[1].x*=x;
-    verticies[2].x*=x;
-    verticies[2].y*=y;
-    verticies[3].y*=y;
+    if (alreadyScaled == false) {
+        verticies[1].x*=x;
+        verticies[2].x*=x;
+        verticies[2].y*=y;
+        verticies[3].y*=y;
+    }
+    alreadyScaled = true;
 }

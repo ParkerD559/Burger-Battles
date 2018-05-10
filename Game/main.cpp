@@ -443,6 +443,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                     keys[VK_ESCAPE]=FALSE;
                     prevScene = currScene;
                     marioScene->resetScene();
+                    fpsScene->resetScene();
                     SwapBuffers(hDC);
                     menuScene->initGL(); //OTHERWISE JUST RESUMES GAME. WUT
                     menuScene->drawGLScene();
@@ -470,6 +471,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 else if (currScene == game) {
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
+                        marioScene->resetScene();
                         currScene = fps;
                         fpsScene->initGL();
                     }
@@ -517,6 +519,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 cout << "Current in " << currScene << ", the N Key was pressed, starting a new game"<< endl;
                 if (currScene == mainmenu) {
                     prevScene = currScene;
+                    i = 0;
                     marioScene->initGL();
                     marioScene->drawGLScene();
                     SwapBuffers(hDC);
@@ -555,13 +558,23 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                     currScene = mainmenu;
                     cout << currScene << endl;
                 }
-                else {
+                else if (prevScene == game) {
                     cout << "Current in " << currScene << ", the Escape Key was pressed, exiting back to Main Menu" << endl;
                     keys[VK_ESCAPE] = FALSE;
                     SwapBuffers(hDC);
                     marioScene->initGL();
                     marioScene->drawGLScene();
-                    currScene = game;
+                    currScene = prevScene;
+                    prevScene = help;
+                    cout << currScene << endl;
+                }
+                else if (prevScene == fps) {
+                    cout << "Current in " << currScene << ", the Escape Key was pressed, exiting back to Main Menu" << endl;
+                    keys[VK_ESCAPE] = FALSE;
+                    SwapBuffers(hDC);
+                    fpsScene->resumeGL();
+                    fpsScene->drawGLScene();
+                    currScene = prevScene;
                     prevScene = help;
                     cout << currScene << endl;
                 }

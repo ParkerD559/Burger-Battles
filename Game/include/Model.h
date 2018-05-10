@@ -31,6 +31,7 @@ class Model
         void set_scale(float, float);
 
         vec1 verticies[4];
+        bool alreadyScaled;
 
     protected:
 

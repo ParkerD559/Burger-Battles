@@ -15,10 +15,19 @@ class restaurantScene
         virtual ~restaurantScene();
         GLint initGL();
         GLint drawGLScene();
+        GLint resumeGL();
         GLvoid resizeGLScene(GLsizei, GLsizei);
+        GLvoid resetScene();
 
         int windMsg(HWND,UINT, WPARAM,LPARAM);
 
+        //Font
+        GLvoid buildFont(int);
+        GLvoid killFont();
+        GLvoid glPrint(const char *, ...);
+        GLuint base;
+        GLfloat cnt1;
+        GLfloat cnt2;
 
         WPARAM wParam;
         float screenHeight;
