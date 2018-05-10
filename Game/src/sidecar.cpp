@@ -85,17 +85,17 @@ void sidecar::sidecarScroll(player* ply)
 
 bool sidecar::isCollided(player* ply)
 {
-    float xdistance = abs(ply->Xpos-Xpos);
+    float xdistance = ply->Xpos-Xpos;
     float ydistance = abs(ply->Ypos-Ypos);
 
     //cout << ply->Xpos << endl;;
     //cout << xdistance << endl;
     //cout << ydistance << endl;
-    if (xdistance < .08 && ydistance < .15)
+    if (xdistance < .27 && ydistance < .2 && xdistance > -.02 )
     {
         //cout << "COLLISION" << endl;
             //*score += 100;
-            return true;
+            return false;
     }
     /*
         float distance = sqrt(pow(abs(ply->Xpos)-abs(Xpos),2)+pow(abs(ply->Ypos)-abs(Ypos),2));
