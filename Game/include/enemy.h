@@ -19,7 +19,7 @@ typedef struct
 
 class enemy:public Model{
     public:
-        enemy();
+        enemy(int*);
         virtual ~enemy();
 
         float scalesize[3]={1.0,1.0,1.0};
@@ -28,7 +28,6 @@ class enemy:public Model{
         float runSpeed;
         float xpos;
         float ypos;
-
         void drawEnemy();
         void deleteEnemy();
         void enemyInit();
@@ -38,6 +37,7 @@ class enemy:public Model{
     protected:
 
     private:
+        int* score;
 };
 
 #endif // ENEMY_H

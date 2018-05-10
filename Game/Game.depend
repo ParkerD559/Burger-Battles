@@ -1381,3 +1381,176 @@
 	<iostream>
 	<cmath>
 
+1525917309 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\main.cpp
+	<windows.h>
+	<GLScene.h>
+	<mainMenu.h>
+	<landingScene.h>
+	<helpScreen.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<restaurantScene.h>
+
+1525914612 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\glscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1521616027 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\mainmenu.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1521620265 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\landingscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1521622661 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\helpscreen.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525913629 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\enemy.cpp
+	"enemy.h"
+	<timer.h>
+	<textureLoader.h>
+	<iostream>
+	<cmath>
+
+1525913443 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\enemy.h
+	<Model.h>
+	<gl/gl.h>
+	<textureLoader.h>
+	<string.h>
+	<iostream>
+	<player.h>
+
+1525917572 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\model.h
+	<windows.h>
+	<GL/glut.h>
+	<textureLoader.h>
+
+1518662792 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\textureloader.h
+	<SOIL.h>
+	<gl/gl.h>
+
+1521574512 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\player.h
+	<Model.h>
+	<gl/gl.h>
+	<textureLoader.h>
+
+1519873998 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\timer.h
+	<time.h>
+
+1517889030 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\gllight.cpp
+	"GLLight.h"
+
+1525915932 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\gllight.h
+	<GLScene.h>
+
+1525914678 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\glscene.cpp
+	"GLScene.h"
+	<GLLight.h>
+	<Model.h>
+	<Inputs.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<enemy.h>
+	<timer.h>
+	<stdio.h>
+	<math.h>
+	<stdarg.h>
+	<variables.h>
+
+1521624315 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\inputs.h
+	<windows.h>
+	<iostream>
+	<Model.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<GLScene.h>
+	<helpScreen.h>
+	<landingScene.h>
+	<mainMenu.h>
+
+1519268558 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\parallax.h
+	<iostream>
+	<string.h>
+	<gl/gl.h>
+	<windows.h>
+
+1520476062 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\skybox.h
+	<gl/gl.h>
+	<textureLoader.h>
+
+1521622809 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\helpscreen.cpp
+	"helpScreen.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1521615072 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\inputs.cpp
+	"Inputs.h"
+	<player.h>
+
+1521623950 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\landingscene.cpp
+	"landingScene.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1521620097 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\mainmenu.cpp
+	"mainMenu.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1525917612 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\model.cpp
+	"Model.h"
+	<textureLoader.h>
+
+1520288488 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\parallax.cpp
+	"parallax.h"
+	<textureLoader.h>
+
+1521583268 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\player.cpp
+	<player.h>
+	<timer.h>
+	<textureLoader.h>
+	<iostream>
+	<string>
+
+1521071418 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\skybox.cpp
+	"skyBox.h"
+	<iostream>
+
+1521071362 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\textureloader.cpp
+	<iostream>
+	"textureLoader.h"
+
+1521447274 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\timer.cpp
+	"timer.h"
+
+1525860585 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\variables.h
+
+1525918436 source:c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\src\restaurantscene.cpp
+	"restaurantScene.h"
+	<Model.h>
+	<Inputs.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<cmath>
+
+1525917247 c:\users\fuller le\documents\fresno state\191t - game development\projects\burger-battles\game\include\restaurantscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+

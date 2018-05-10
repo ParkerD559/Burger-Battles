@@ -7,17 +7,23 @@
 #include <skyBox.h>
 #include <enemy.h>
 #include <timer.h>
+#include <stdio.h>
+#include <math.h>
+#include <stdarg.h>
+#include <variables.h>
+
+int i = 100;
 Model *modelTeapot = new Model();
 Inputs *KbMs = new Inputs();
 parallax *plx = new parallax();
 player *ply = new player();
 skyBox *sky = new skyBox;
-enemy *ene = new enemy();
-
+enemy *ene = new enemy(&i);
 timer *scenetim = new timer();
 //timer *spawns = new timer();
 
-GLScene::GLScene()
+
+GLScene::GLScene(bool reset)
 {
     //ctor
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
@@ -27,7 +33,63 @@ GLScene::GLScene()
 GLScene::~GLScene()
 {
     //dtor
+}
+GLvoid GLScene::buildFont() {
+    HFONT	font;										// Windows Font ID
+	HFONT	oldfont;									// Used For Good House Keeping
 
+	base = glGenLists(96);								// Storage For 96 Characters
+
+	font = CreateFont(	24,							    // Height Of Font
+						0,								// Width Of Font
+						0,								// Angle Of Escapement
+						0,								// Orientation Angle
+						FW_BOLD,						// Font Weight
+						FALSE,							// Italic
+						FALSE,							// Underline
+						FALSE,							// Strikeout
+						ANSI_CHARSET,					// Character Set Identifier
+						OUT_TT_PRECIS,					// Output Precision
+						CLIP_DEFAULT_PRECIS,			// Clipping Precision
+						ANTIALIASED_QUALITY,			// Output Quality
+						FF_DONTCARE|DEFAULT_PITCH,		// Family And Pitch
+						"Magneto");					    // Font Name
+
+	oldfont = (HFONT)SelectObject(hDC, font);           // Selects The Font We Want
+	wglUseFontBitmaps(hDC, 32, 96, base);				// Builds 96 Characters Starting At Character 32
+	SelectObject(hDC, oldfont);							// Selects The Font We Want
+    DeleteObject(font);
+}
+
+GLvoid GLScene::killFont() {
+    glDeleteLists(base, 96);
+}
+
+GLvoid GLScene::glPrint(const char *fmt, ...) {
+    char text[256];
+    va_list ap;
+    if (fmt == NULL)
+            return;
+
+    va_start(ap, fmt);
+        vsprintf(text, fmt, ap);
+    va_end(ap);
+
+    glPushAttrib(GL_LIST_BIT);
+    glListBase(base-32);
+    glCallLists(strlen(text), GL_UNSIGNED_BYTE, text);
+    glPopAttrib();
+}
+
+
+GLvoid GLScene::resetScene() {
+        delete modelTeapot; modelTeapot = new Model();
+        delete KbMs; KbMs = new Inputs();
+        delete plx; plx = new parallax();
+        delete ply; ply = new player();
+        delete sky; sky = new skyBox();
+        delete ene; ene = new enemy(&i);
+        delete scenetim; scenetim = new timer();
 }
 
 GLint GLScene::initGL()
@@ -38,6 +100,7 @@ GLint GLScene::initGL()
     glClearDepth(1.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 
    // glEnable(GL_COLOR_MATERIAL);
     GLLight SetLight(GL_LIGHT0);
@@ -49,6 +112,7 @@ GLint GLScene::initGL()
     ply->playerInit();
     sky->loadTextures();
     ene->enemyInit();
+    buildFont();
     //spawns->start();
     return true;
 }
@@ -60,25 +124,41 @@ GLint GLScene::drawGLScene()
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 
     glPushMatrix();
-      glScaled(3.33,3.33,1.0);
-         plx->drawSquare(screenWidth,screenHeight);
-     glPopMatrix();
-
-     bool running;
-        if(ply->runTrigger > 0)
-            running = true;
-        else
-            running = false;
-
-       plx->scroll(running,"right",0.002);
-/*
-    glPushMatrix();
-        glDisable(GL_LIGHTING);
-        glScaled(200,200,200);
-        sky->drawBox();
-        glEnable(GL_LIGHTING);
+        glTranslatef(0.0f, 0.0f, -5.0f);
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glRasterPos2f(2.2f, 1.8f);                 // Position The Text On The Screen
+        char buffer [100];
+        char *intToStr = itoa(i, buffer, 10);
+        string counter = string(intToStr);
+        string score = "Current Score: " + counter;
+        glPrint(score.c_str(), cnt1);	// Print GL Text To The Screen
     glPopMatrix();
-*/
+
+    glPushMatrix();
+        glScaled(3.33,3.33,1.0);
+        plx->drawSquare(screenWidth,screenHeight);
+    glPopMatrix();
+
+
+    bool running;
+    if(ply->runTrigger > 0)
+        running = true;
+    else
+        running = false;
+    //float speed = (i >= 1000) ? 0 : (screenWidth/screenHeight)/(screenWidth/3);
+    float speed = (screenWidth/screenHeight)/(screenWidth/3);
+    if (i >= 200) {
+        ply->Xpos += speed*4;
+        if (ply->Xpos >= .9) {
+            sceneDone = true;
+        }
+    }
+    else {
+       plx->scroll(running,"right",speed);
+    }
+
+
+
     glPushMatrix();
         ply->actions(ply->actionTrigger);
     glPopMatrix();
@@ -86,8 +166,9 @@ GLint GLScene::drawGLScene()
     if(ply->runTrigger == 1){
         glPushMatrix();
             ene->enemyScroll(ply);
-    glPopMatrix();
+        glPopMatrix();
     }
+
 
 }
 

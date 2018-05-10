@@ -11,7 +11,7 @@ timer *spawnRate = new timer();
 textureLoader *enemyText = new textureLoader();
 
 
-enemy::enemy()
+enemy::enemy(int *score)
 {
     //ctor
     verticies[0].x = 0.0;verticies[0].y = 0.0;verticies[0].z = -1;
@@ -23,6 +23,7 @@ enemy::enemy()
     ypos = -0.3;
     Ypos = ((double)(rand()%250)/1000*-1)-.05;
     runSpeed = .01;
+    this->score = score;
 }
 
 enemy::~enemy()
@@ -79,7 +80,7 @@ void enemy::enemyScroll(player *ply)
         Xpos= Xpos - runSpeed;
         tim->reset();
     }
-    if((Xpos > -.9 && Xpos <.8) && isCollided(ply)){
+    if((Xpos > -.9 && Xpos <.8) && !isCollided(ply)){
 
         glTranslated(Xpos,Ypos,0);
 
@@ -105,7 +106,8 @@ bool enemy::isCollided(player *ply)
     if (xdistance < .05 && ydistance < .05)
     {
         //cout << "COLLISION" << endl;
-            return false;
+            *score += 100;
+            return true;
     }
     /*
         float distance = sqrt(pow(abs(ply->Xpos)-abs(Xpos),2)+pow(abs(ply->Ypos)-abs(Ypos),2));
@@ -115,6 +117,6 @@ bool enemy::isCollided(player *ply)
             return false;
             }
             */
-        return true;
+        return false;
 }
 

@@ -3,6 +3,7 @@
 
 #include<windows.h>
 #include<GL/glut.h>
+#include <textureLoader.h>
 
 typedef struct{
  float x;
@@ -32,6 +33,7 @@ class Model
     protected:
 
     private:
+        textureLoader* tex;
 };
 
 #endif // MODEL_H
