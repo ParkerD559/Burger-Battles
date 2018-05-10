@@ -45,6 +45,8 @@ mainMenu *menuScene = new mainMenu();
 helpScreen *helpScene = new helpScreen();
 GLScene *marioScene = new GLScene(&i);
 ChaseScene *finalScene = new ChaseScene(&i);
+sounds *mainSound = new sounds();
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //										THE KILL GL WINDOW
@@ -417,6 +419,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
     int	fullscreenHeight = GetSystemMetrics(SM_CYSCREEN);
     int screenHeight = 900;
     int screenWidth = 1600;
+    mainSound->initSounds();
 
 	// Ask The User Which Screen Mode They Prefer
 	if (MessageBox(NULL,"Would You Like To Run In Fullscreen Mode?", "Start FullScreen?",MB_YESNO|MB_ICONQUESTION)==IDNO)
@@ -615,6 +618,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                     cout << "Current in " << currScene << ", the Escape Key was pressed, exiting back to Main Menu" << endl;
                     keys[VK_ESCAPE] = FALSE;
                     SwapBuffers(hDC);
+                    mainSound->pauseSounds(true);
                     marioScene->initGL();
                     marioScene->drawGLScene();
                     currScene = prevScene;
