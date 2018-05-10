@@ -16,7 +16,7 @@
 parallax *finalBackground = new parallax();
 player *burgerman = new player();
 enemy *bikeboi;
-textureLoader biketextures[2];
+//textureLoader biketextures[2];
 timer *bikertim = new timer();
 int bikerticks;
 Model* leftFry = new Model();
@@ -106,8 +106,8 @@ GLint ChaseScene::initGL()
 
     finalBackground->parallaxInit("images/finalbackground.png");
 
-    biketextures[0].bindTexture("images/sprite_0.png");
-    biketextures[1].bindTexture("images/sprite_1.png");
+    //biketextures[0].bindTexture("images/sprite_0.png");
+    //biketextures[1].bindTexture("images/sprite_1.png");
     timboi->start();
     bikertim->start();
     bikerticks = (rand() % 2000) + 500;
@@ -119,6 +119,7 @@ GLint ChaseScene::initGL()
     burgerman->set_scale(2.0, 2.0);
 
     bikeboi->enemyInit("images/sprite_0.png");
+    bikeboi->Xpos = -.2;
     bikeboi->Ypos = 0.1;
     bikeboi->Zoom = -4.0;
     bikeboi->set_scale(2.0, 2.0);
@@ -127,7 +128,7 @@ GLint ChaseScene::initGL()
     rightFry->modelInit("images/fry.png", true);
     leftFry->Xpos = rightFry->Xpos = 100.0;
     leftFry->Ypos = rightFry->Ypos = 0.0;
-    leftFry->Zoom = rightFry->Zoom = -3.0;
+    leftFry->Zoom = rightFry->Zoom = -2.0;
     leftFry->set_scale(0.2, 0.2); rightFry->set_scale(0.2, 0.2);
 
 
@@ -145,9 +146,6 @@ GLint ChaseScene::drawGLScene()
         finalBackground->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
     finalBackground->scroll(true,"up",0.0001);
-    if (timboi->getTicks() > 1000) {
-        sceneDone = true;
-    }
     glPushMatrix();
         glTranslatef(0.0f, 0.0f, -5.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
@@ -160,9 +158,6 @@ GLint ChaseScene::drawGLScene()
         glPrint(hello.c_str(), cnt1);	// Print GL Text To The Screen
     glPopMatrix();
     glEnable(GL_LIGHTING);
-
-
-
 
 
    glPushMatrix();
@@ -197,10 +192,24 @@ GLint ChaseScene::drawGLScene()
     glPopMatrix();
 
     glPushMatrix();
+        if(shotMoving) {
+            leftFry->Ypos += 0.01;
+        }
+        if(leftFry->Ypos > .4) {
+            shotMoving = false;
+            leftFry->Ypos = 1000.0;
+        }
         leftFry->drawModel();
     glPopMatrix();
 
     glPushMatrix();
+        if(shotMoving) {
+            rightFry->Ypos += 0.01;
+        }
+        if(rightFry->Ypos > .4) {
+            shotMoving = false;
+            rightFry->Ypos = 1000.0;
+        }
         rightFry->drawModel();
     glPopMatrix();
 
@@ -230,8 +239,12 @@ int ChaseScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        } else if (wParam == VK_RIGHT) {
                 movingRight = true;
                 movingLeft = false;
-	        } else if (wParam == VK_SPACE) {
-                leftFry->Xpos = rightFry->Xpos = 0.0;
+	        } else if (wParam == VK_SPACE & !shotMoving) {
+                leftFry->Xpos = burgerman->Xpos - .05;
+                rightFry->Xpos = burgerman->Xpos + .05;
+                leftFry->Ypos = rightFry->Ypos = burgerman->Ypos;
+                shotMoving = true;
+                *score = *score - 2;
 	        }
 	    break;
 

@@ -18,7 +18,6 @@
 #include <windows.h>		// Header File For Windows
 #include <restaurantScene.h>
 #include <chaseScene.h>
-#include <chaseScene2.h>
 
 using namespace std;
 

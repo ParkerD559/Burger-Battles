@@ -38,6 +38,7 @@ class ChaseScene
 
     private:
         int* score;
+        bool shotMoving = false;
         bool movingLeft;
         bool movingRight;
         bool bikerLeft;
