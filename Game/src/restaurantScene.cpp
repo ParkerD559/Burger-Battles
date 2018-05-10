@@ -11,8 +11,10 @@
 #include <timer.h>
 #include <stdarg.h>
 #include <variables.h>
+#include <sounds.h>
 //#include <random>
 
+sounds *restaurantsnds = new sounds();
 Model *modelPot = new Model();
 Inputs *restaurantKbMs = new Inputs();
 parallax *restaurantPlx = new parallax();
@@ -141,6 +143,7 @@ GLint restaurantScene::initGL()
     restaurantPlx->parallaxInit("images/secondstage.png");
     resturantPly->playerInit();
     restaurantSky->loadTextures();
+    restaurantsnds->initSounds();
     buildFont(30);
 
     for(int i = 0; i < 3; i++) {
@@ -322,6 +325,7 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 
 	    case WM_KEYDOWN:
+	        restaurantKbMs->wParam = wParam;
 	        if (wParam == VK_LEFT) {
                 gunMoveLeft = true;
 	        } else if (wParam == VK_RIGHT) {
@@ -332,6 +336,7 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 shotMoving = true;
                 *score = *score - 1;
             }
+            restaurantKbMs->keySound(restaurantsnds);
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?

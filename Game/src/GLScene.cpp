@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <variables.h>
+#include <sounds.h>
 #include <sidecar.h>
 
 Model *modelTeapot = new Model();
@@ -22,7 +23,7 @@ enemy *ene;
 timer *scenetim = new timer();
 //timer *spawns = new timer();
 sidecar *car = new sidecar();
-
+sounds *snds = new sounds();
 
 GLScene::GLScene(int* score)
 {
@@ -120,7 +121,10 @@ GLint GLScene::initGL()
     sky->loadTextures();
     ene->enemyInit("images/pixelfries.png");
     car->sidecarInit();
+    snds->initSounds();
     buildFont(30);
+    snds->playMusic("sounds/music.mp3", true);
+    snds->isPlaying = true;
     //spawns->start();
     return true;
 }
@@ -234,6 +238,7 @@ int GLScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	        KbMs->keyEnv(plx, 0.0005);
 	        KbMs->keyPressed(ply);
 	        KbMs->keyPressed(sky);
+	        KbMs->keySound(snds);
 
 	    break;
 
