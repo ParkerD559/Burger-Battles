@@ -186,7 +186,7 @@ GLint ChaseScene::drawGLScene()
             glColor3f(255.0f, 0.0f, 0.0f);
             glDisable(GL_LIGHTING);
             glTranslatef(0.0f, 0.0f, -5.0f);
-            glRasterPos2f(-.5f, -0.3f);                 // Position The Text On The Screen
+            glRasterPos2f(-.5f, -0.8f);                 // Position The Text On The Screen
             glPrint("Press Esc to then 'Y' return to main menu", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
         failTimer->start();
