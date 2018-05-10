@@ -15,6 +15,7 @@ class sounds
         void playSound(char *, bool);
         void stopAllSounds();
         void setSoundVolume(int );
+        void pauseSounds(bool);
         int initSounds();
         bool isPlaying = false;
         int volume;

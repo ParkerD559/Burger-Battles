@@ -35,6 +35,9 @@ void sounds::stopAllSounds()
     engine->stopAllSounds();
 }
 
+void sounds::pauseSounds(bool pause) {
+    engine->setAllSoundsPaused(pause);
+}
 int sounds::initSounds()
 {
     if(!engine)

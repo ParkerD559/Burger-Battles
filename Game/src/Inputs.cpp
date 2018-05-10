@@ -234,12 +234,15 @@ void Inputs::keySound(sounds* snds)
             snds->isPlaying = true;
           }
           else {
-            snds->stopAllSounds();
+            snds->pauseSounds(true);
+            //snds->stopAllSounds();
             snds->isPlaying = false;
 
           }
-
       break;
+      case VK_UP:
+        snds->playSound("sounds/jumping.mp3", false);
+        break;
     }
 
 }
