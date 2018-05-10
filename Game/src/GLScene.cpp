@@ -184,6 +184,17 @@ GLint GLScene::drawGLScene()
             string currentScore = "Current Score: " + counter;
             glPrint(currentScore.c_str(), cnt1);	// Print GL Text To The Screen
         glPopMatrix();
+        glPushMatrix();
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glRasterPos2f(2.2f, 1.7f);                 // Position The Text On The Screen
+            int ammo = *score/20;
+            intToStr = itoa(ammo, buffer, 10);
+            counter = string(intToStr);
+            string currentAmmo = "Ammunition: " + counter;
+            glPrint(currentAmmo.c_str(), cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
         glEnable(GL_LIGHTING);
         plx->scroll(running,"right",speed);
     }

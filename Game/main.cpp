@@ -436,11 +436,8 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 		else										// If There Are No Messages
 		{
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
-			if (keys[VK_ESCAPE] && (currScene == game))	// Active?  Was There A Quit Received?
+			if (keys[VK_ESCAPE] && (currScene == game || currScene == fps))	// Active?  Was There A Quit Received?
 			{
-                /*(if (MessageBox(NULL,"Would you like to Exit the Game?" , "Exit Application",MB_YESNO) == IDYES) {
-                    done = TRUE;
-                }*/
                 //MessageBox escape = MessageBox(NULL, "Would you like to go to the Main Menu?", "Back to Main Menu",
 			    if (MessageBox(NULL,"Would you like to Quit and go back to the Main Menu?", "Quit to Main Menu",MB_YESNO) == IDYES) {
                     keys[VK_ESCAPE]=FALSE;
@@ -506,7 +503,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			if (keys[VK_RETURN]) {
                 keys[VK_RETURN] = FALSE;
                 if (currScene == landing) {
-                    prevScene == landing;
+                    prevScene == currScene;
                     cout << "Current in " << currScene << ", the Enter Key was pressed, going to main menu"<< endl;
                     menuScene->initGL();
                     menuScene->drawGLScene();
@@ -519,7 +516,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 keys['N']=FALSE;
                 cout << "Current in " << currScene << ", the N Key was pressed, starting a new game"<< endl;
                 if (currScene == mainmenu) {
-                    prevScene = mainmenu;
+                    prevScene = currScene;
                     marioScene->initGL();
                     marioScene->drawGLScene();
                     SwapBuffers(hDC);
@@ -530,18 +527,13 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
             if (keys['H']) {                       //Draws help scene on 'H' if on main menu
                 keys['H'] = FALSE;
                 cout << "Current in " << currScene << ", the H Key was pressed, changing to help scene"<< endl;
-                if (currScene == mainmenu || currScene == game) {
-                    if (currScene == mainmenu) {
-                        prevScene = mainmenu;
-                    }
-                    else {
-                        prevScene = game;
-                    }
+                    prevScene = currScene;
                     helpScene->initGL();
                     helpScene->drawGLScene();
                     SwapBuffers(hDC);
                     currScene = help;
                     cout << currScene << endl;
+                    cout << prevScene << endl;
                 }
             }
             if (keys['E']) {                        //Exits game on 'E' if on main menu
@@ -553,7 +545,9 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
             }
             if (keys[VK_ESCAPE] && currScene == help) {
                 if (prevScene == mainmenu) {
+                    cout << "Previous Scene from help was " << prevScene << endl;
                     cout << "Current in " << currScene << ", the Escape Key was pressed, exiting back to Main Menu" << endl;
+                    prevScene = currScene;
                     keys[VK_ESCAPE] = FALSE;
                     menuScene->initGL();
                     menuScene->drawGLScene();
@@ -573,7 +567,6 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 }
             }
 		}
-	}
 
 	// Shutdown
 	KillGLWindow();									// Kill The Window
