@@ -95,7 +95,7 @@ bool sidecar::isCollided(player* ply)
     {
         //cout << "COLLISION" << endl;
             //*score += 100;
-            return false;
+            return true;
     }
     /*
         float distance = sqrt(pow(abs(ply->Xpos)-abs(Xpos),2)+pow(abs(ply->Ypos)-abs(Ypos),2));
