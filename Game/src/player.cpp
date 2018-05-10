@@ -22,7 +22,7 @@ player::player()
     verticies[3].x = 0.0;verticies[3].y = .10;verticies[3].z = -1.0;
 
     runspeed  =0;
-    jumpspeed =0;
+    jumpspeed =0.015;
     actionTrigger =0;
     runTrigger = 0;
     jumpTrigger = 0;
@@ -121,6 +121,23 @@ void player::actions(int &action)
        break;
    case 2:
 
+            if(Ypos < jumpLoc && !goingdown){
+                Ypos+=jumpspeed;
+                goingup = true;
+            }
+            else if(Ypos >= jumpLoc && goingup)
+            {
+                goingup = false;
+                goingdown = true;
+
+            }
+            else if(goingdown)
+            {
+                Ypos-=jumpspeed;
+            }
+
+
+   /*
             if (airT->getTicks()>700){
                 actionTrigger = 1;
                 landT->reset();
@@ -146,13 +163,14 @@ void player::actions(int &action)
                 jumpspeed++;
                 jumpspeed = runspeed %10;
 `               */
-                //T->reset();
-            //}
-            if(Ypos < startY)
+            if(Ypos < startY){
                 Ypos = startY;
-
+                goingdown = false;
+                actionTrigger = 1;
+            }
             jump[0].binder();
 
+            glPushMatrix();
             glTranslated(Xpos,Ypos,0);
 
 

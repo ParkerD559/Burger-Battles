@@ -58,13 +58,17 @@ GLint restaurantScene::initGL()
 
     cursor->modelInit("images/cursor.png", true);
 
-    rock->modelInit("images/Fork.png", true);
-    rock->Zoom = -10.;
+    rock->modelInit("images/fry.png", true);
+    rock->Zoom = -2.0;
     rock->Xpos = 100.0;
     rock->Ypos = 100.0;
+    rock->set_scale(.25,.25);
 
     gun->modelInit("images/GunOnly.png", true);
+    gun->Ypos = -0.4;
+    gun->Xpos = 0.0;
     gun->Zoom = -2.0;
+    gun->set_scale(.25,.25);
 
     return true;
 }
@@ -95,10 +99,29 @@ GLint restaurantScene::drawGLScene()
         resturantPly->actions(resturantPly->actionTrigger);
     glPopMatrix();
 */
+   glPushMatrix();
+        //glScalef(0.2, 0.2, 1);
+        //glTranslated(0, 0, rock->Zoom);
+        if (shotMoving) {
+            rock->Ypos += 0.01;
+
+        }
+        if (rock->Ypos > .4) {
+            shotMoving = false;
+            rock->Ypos = 1000;
+        }
+        rock->drawModel();
+    glPopMatrix();
 
     glPushMatrix();
         glScaled(1.0, 1.0, 1.0);
-        glTranslated(1.75, -0.8, gun->Zoom);
+        if (gunMoveLeft && (gun->Xpos > -.75)) {
+            gun->Xpos -= 0.01;
+        } else if (gunMoveRight && (gun->Xpos < .5)) {
+            gun->Xpos += 0.01;
+        }
+        //glScalef(0.2, 0.2, 1);
+        //glTranslated(0, gun->Ypos, gun->Zoom);
         gun->drawModel();
     glPopMatrix();
 
@@ -114,27 +137,7 @@ GLint restaurantScene::drawGLScene()
     glPushMatrix();
         glScaled(1, 1, 1);
         glTranslated(0, 0, cursor->Zoom);
-        cursor->drawModel();
-    glPopMatrix();
-
-    rock->Zoom -= 0.1;
-    for(int i = 0; i < 5; i++) {
-        if (rock->Zoom < (man[i]->Zoom - 20.0)) {
-            if (((abs(rock->Xpos - man[i]->Xpos) < 0.4) && (abs(rock->Ypos - man[i]->Ypos) < 1.0)) || (man[i]->Ypos < -3.0)) {
-                man[i]->Ypos = 5.0;
-            }
-        }
-    }
-    if (rock->Zoom < -40.0) {
-        rock->Zoom = 0.;
-        rock->Xpos = 100.0;
-        rock->Ypos = 100.0;
-    }
-
-    glPushMatrix();
-        glScaled(0.01, 0.01, 0.01);
-        glTranslated(0, 0, rock->Zoom);
-        rock->drawModel();
+        //cursor->drawModel();
     glPopMatrix();
 
     return true;
@@ -158,12 +161,15 @@ int restaurantScene::windMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 
 	    case WM_KEYDOWN:
-	        restaurantKbMs->wParam = wParam;
-	        restaurantKbMs->keyPressed(modelPot);
-	        restaurantKbMs->keyEnv(restaurantPlx, 0.005);
-	        restaurantKbMs->keyPressed(resturantPly);
-	        restaurantKbMs->keyPressed(restaurantSky);
-
+	        if (wParam == VK_LEFT) {
+                gunMoveLeft = true;
+	        } else if (wParam == VK_RIGHT) {
+	            gunMoveRight = true;
+	        } else if (wParam == VK_SPACE && !shotMoving) {
+                rock->Xpos = gun->Xpos;
+                rock->Ypos = gun->Ypos;
+                shotMoving = true;
+            }
 	    break;
 
 	    case WM_KEYUP:								// Has A Key Been Released?

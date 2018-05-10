@@ -36,6 +36,7 @@ void Model::modelInit(char *fileName, bool trans)
 
     tex->binder();
     tex->bindTexture(fileName);
+
 }
 
 void Model::drawModel()
@@ -65,4 +66,12 @@ void Model::drawModel()
 
 
   //  glutSolidTeapot(1.5);
+}
+void Model::set_scale(float x, float y)
+{
+
+    verticies[1].x*=x;
+    verticies[2].x*=x;
+    verticies[2].y*=y;
+    verticies[3].y*=y;
 }

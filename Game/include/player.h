@@ -22,7 +22,8 @@ class player:public Model
         vec verticies[4];
 
         int runspeed;
-        int jumpspeed;
+        float jumpspeed;
+
         int actionTrigger;
         int runTrigger;
         int jumpTrigger;
@@ -36,7 +37,8 @@ class player:public Model
         void playerInit();
         void actions(int&);
 
-
+        bool goingup;
+        bool goingdown;
 
     protected:
 
