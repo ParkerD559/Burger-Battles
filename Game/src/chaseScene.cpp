@@ -163,6 +163,8 @@ GLint ChaseScene::drawGLScene()
 
 
     if(*score <= -1 && bikeboi->health > 0 ) {
+        finalsound->pauseSounds(true);
+        finalsound->playSound("sounds/death.mp3", false);
         glPushMatrix();
             buildFont(100);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -179,6 +181,14 @@ GLint ChaseScene::drawGLScene()
             glRasterPos2f(-.5f, -0.15f);                         // Position The Text On The Screen
             glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
+        glPushMatrix();
+            buildFont(50);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-.5f, -0.3f);                 // Position The Text On The Screen
+            glPrint("Press Esc to then 'Y' return to main menu", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
         failTimer->start();
         if(failTimer->getTicks() > 3000)
             sceneDone = true;
@@ -191,6 +201,14 @@ GLint ChaseScene::drawGLScene()
             glTranslatef(0.0f, 0.0f, -2.0f);
             glRasterPos2f(-.5f, 0.1f);                         // Position The Text On The Screen
             glPrint("YOU WON", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glPushMatrix();
+            buildFont(50);
+            glColor3f(0.0f, 255.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-.5f, -0.3f);                 // Position The Text On The Screen
+            glPrint("Press Esc to then 'Y' return to main menu", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
 
         failTimer->start();

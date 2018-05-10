@@ -45,6 +45,8 @@ GLint mainMenu::drawGLScene()
       glScaled(3.33,3.33,1.0);
          menuplx->drawSquare(screenWidth,screenHeight);
      glPopMatrix();
+
+
 }
 
 GLvoid mainMenu::resizeGLScene(GLsizei width, GLsizei height)

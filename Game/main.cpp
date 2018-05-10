@@ -454,7 +454,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 		else										// If There Are No Messages
 		{
 			// Draw The Scene.  Watch For ESC Key And Quit Messages From DrawGLScene()
-			if (keys[VK_ESCAPE] && (currScene == game || currScene == fps))	// Active?  Was There A Quit Received?
+			if (keys[VK_ESCAPE] && (currScene == game || currScene == fps || currScene == chase))	// Active?  Was There A Quit Received?
 			{
                 //MessageBox escape = MessageBox(NULL, "Would you like to go to the Main Menu?", "Back to Main Menu",
 			    if (MessageBox(NULL,"Would you like to Quit and go back to the Main Menu?", "Quit to Main Menu",MB_YESNO) == IDYES) {

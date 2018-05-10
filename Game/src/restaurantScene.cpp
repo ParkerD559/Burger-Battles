@@ -186,6 +186,8 @@ GLint restaurantScene::drawGLScene()
 
        //restaurantPlx->scroll(true,"right",0.005);
     if(*score <= -1) {
+        restaurantsnds->pauseSounds(true);
+        restaurantsnds->playSound("sounds/death.mp3",false);
         glPushMatrix();
             buildFont(100);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -202,9 +204,19 @@ GLint restaurantScene::drawGLScene()
             glRasterPos2f(-.5f, -0.15f);                         // Position The Text On The Screen
             glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
+        glPushMatrix();
+            buildFont(50);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-.5f, -0.8f);                 // Position The Text On The Screen
+            glPrint("Press Esc then 'Y' to return to main menu", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
     }
     else if(man[0]->Ypos <= -.4 ||man[1]->Ypos <= -.4 || man[2]->Ypos <= -.4 )
     {
+        restaurantsnds->pauseSounds(true);
+        restaurantsnds->playSound("sounds/death.mp3",false);
         glPushMatrix();
             buildFont(100);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -212,6 +224,14 @@ GLint restaurantScene::drawGLScene()
             glTranslatef(0.0f, 0.0f, -2.0f);
             glRasterPos2f(-.5f, -0.15f);                         // Position The Text On The Screen
             glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+        glPushMatrix();
+            buildFont(50);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -5.0f);
+            glRasterPos2f(-.5f, -0.8f);                 // Position The Text On The Screen
+            glPrint("Press Esc to then 'Y' return to main menu", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
     }
     else if (spatulaCounter <= 0) {

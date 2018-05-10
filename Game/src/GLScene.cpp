@@ -181,12 +181,12 @@ GLint GLScene::drawGLScene()
             glPrint("YOU DIED A FAILURE", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
         glPushMatrix();
-            buildFont(50);
+            buildFont(30);
             glColor3f(255.0f, 0.0f, 0.0f);
             glDisable(GL_LIGHTING);
             glTranslatef(0.0f, 0.0f, -5.0f);
             glRasterPos2f(-2.0f, -0.5f);                 // Position The Text On The Screen
-            glPrint("Press Esc to return to main menu", cnt1);	// Print GL Text To The Screen
+            glPrint("Press Esc then 'Y' to return to main menu", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
     }
     else {
