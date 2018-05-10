@@ -108,7 +108,7 @@ bool enemy::isCollided(player *ply)
     if (xdistance < .05 && ydistance < .05)
     {
         //cout << "COLLISION" << endl;
-            *score += 1;
+            *score += 10;
             return true;
     }
     /*

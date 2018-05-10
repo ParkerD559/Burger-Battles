@@ -32,6 +32,7 @@ class restaurantScene
         WPARAM wParam;
         float screenHeight;
         float screenWidth;
+        int spatulaCounter;
     protected:
 
     private:

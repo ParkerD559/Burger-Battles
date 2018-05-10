@@ -29,6 +29,7 @@ restaurantScene::restaurantScene(int *score)
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     this->score = score;
+    spatulaCounter = 15;
 }
 
 restaurantScene::~restaurantScene()
@@ -138,8 +139,12 @@ GLint restaurantScene::initGL()
         man[i]->modelInit("images/spatula.png", true);
         man[i]->Zoom = -2.;
         man[i]->Ypos = .6;
-        man[i]->Xpos = (i * .5) - .8;
+        man[i]->set_scale(.25,.25);
+
     }
+    man[0]->Xpos = -0.7;
+    man[1]->Xpos = -0.1;
+    man[2]->Xpos = 0.5;
 
     cursor->modelInit("images/cursor.png", true);
 
@@ -168,7 +173,7 @@ GLint restaurantScene::drawGLScene()
         restaurantPlx->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
        //restaurantPlx->scroll(true,"right",0.005);
-    if(*score <= 0) {
+    if(*score <= -1) {
         glPushMatrix();
             buildFont(100);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -177,6 +182,17 @@ GLint restaurantScene::drawGLScene()
             glRasterPos2f(-.5f, 0.1f);                         // Position The Text On The Screen
             glPrint("OUT OF AMMO", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
+        glPushMatrix();
+            buildFont(100);
+            glColor3f(255.0f, 0.0f, 0.0f);
+            glDisable(GL_LIGHTING);
+            glTranslatef(0.0f, 0.0f, -2.0f);
+            glRasterPos2f(-.5f, -0.15f);                         // Position The Text On The Screen
+            glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
+        glPopMatrix();
+    }
+    else if(man[0]->Ypos <= -.4 ||man[1]->Ypos <= -.4 || man[2]->Ypos <= -.4 )
+    {
         glPushMatrix();
             buildFont(100);
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -204,11 +220,21 @@ GLint restaurantScene::drawGLScene()
         for (int i = 0; i < 3; i++) {
             man[i]->Ypos -= rand() % 1000 * 0.000005;
             glPushMatrix();
-                glScaled(1, 1, 1);
-                glTranslated(0, man[i]->Ypos, man[i]->Zoom);
+                if(man[i]->isCollided(rock)){
+                    man[i]->Ypos = .6;
+                    shotMoving = false;
+                    spatulaCounter--;
+                    cout << spatulaCounter << endl;
+                    rock->Ypos = 1000.0;
+                }
                 man[i]->drawModel();
             glPopMatrix();
         }
+
+
+
+
+
 
         glPushMatrix();
             //glScalef(0.2, 0.2, 1);
@@ -218,10 +244,14 @@ GLint restaurantScene::drawGLScene()
             }
             if (rock->Ypos > .4) {
                 shotMoving = false;
-                rock->Ypos = 1000;
+                rock->Ypos = 1000.0;
             }
             rock->drawModel();
         glPopMatrix();
+        //cout << rock->Ypos - man[1]->Ypos << endl;
+        //man[0]->isCollided(rock);
+        if(!(rock->Ypos >1))
+            //cout << rock->Ypos << endl;
 
         glPushMatrix();
             glScaled(1.0, 1.0, 1.0);

@@ -1,8 +1,8 @@
 #include "Model.h"
 #include <textureLoader.h>
-
-
-
+#include <iostream>
+#include <cmath>
+using namespace std;
 Model::Model()
 {
     //ctor
@@ -77,4 +77,41 @@ void Model::set_scale(float x, float y)
         verticies[3].y*=y;
     }
     alreadyScaled = true;
+}
+
+
+bool Model::isCollided(Model* mdl)
+{
+    float newx = mdl->Xpos;
+    float newy = mdl->Ypos;
+    //cout << "new x " << newx << endl;
+    //cout <<"new y " << newy << endl;
+    //cout << "this x " << this->Xpos << endl;
+    //cout <<"this y " << this->Ypos << endl;
+    float newx2 = this->Xpos;
+    float newy2 = this->Ypos;
+    float xdistance = abs(newx-newx2);
+    float ydistance = abs((newy)-newy2);
+
+
+    //cout << mdl->Xpos << endl;;
+    //if(xdistance < 50)
+    //cout << "x " << xdistance << endl;
+    //if(ydistance < 200)
+    //cout << "y " << ydistance << endl;
+    if (xdistance < .05 && ydistance < .2)
+    {
+        cout << "COLLISION" << endl;
+            //*score += 100;
+            return true;
+    }
+    /*
+        float distance = sqrt(pow(abs(ply->Xpos)-abs(Xpos),2)+pow(abs(ply->Ypos)-abs(Ypos),2));
+
+        if (distance < 1.4142135375){
+            cout << "COLLISION" << endl;
+            return false;
+            }
+            */
+        return false;
 }
