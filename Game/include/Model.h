@@ -25,12 +25,16 @@ class Model
         double RotateZ;
 
         double Zoom;
-        double Xpos;
-        double Ypos;
+        float Xpos;
+        float Ypos;
 
         void set_scale(float, float);
 
         vec1 verticies[4];
+        bool alreadyScaled;
+
+
+        bool isCollided(Model* );
 
     protected:
 

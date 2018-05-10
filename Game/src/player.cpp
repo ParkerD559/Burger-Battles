@@ -27,7 +27,7 @@ player::player()
     actionTrigger =0;
     runTrigger = 0;
     jumpTrigger = 0;
-    jumpLoc = -.1;
+    jumpLoc = 0;
     Xpos = -.3;
     Ypos = -.3;
     startY = -.3;

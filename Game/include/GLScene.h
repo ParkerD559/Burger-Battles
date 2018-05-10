@@ -11,7 +11,7 @@ using namespace std;
 class GLScene
 {
     public:
-        GLScene(int* scorecounter);
+        GLScene(int*);
         virtual ~GLScene();
         GLint initGL();
         GLint drawGLScene();
@@ -21,7 +21,7 @@ class GLScene
         int windMsg(HWND,UINT, WPARAM,LPARAM);
 
         //Font
-        GLvoid buildFont();
+        GLvoid buildFont(int);
         GLvoid killFont();
         GLvoid glPrint(const char *, ...);
         GLuint base;
@@ -36,7 +36,8 @@ class GLScene
     protected:
 
     private:
-        int* score;
+        int *score;
+
 };
 
 #endif // GLSCENE_H

@@ -24,6 +24,7 @@ enemy::enemy(int *score)
     //Ypos = ((double)(rand()%250)/1000*-1)-.05;
     runSpeed = .01;
     this->score = score;
+    enemyCounter = 10;
 }
 
 enemy::~enemy()
@@ -88,6 +89,7 @@ void enemy::enemyScroll(player *ply)
     }
     else{
         //Ypos = 0;
+        enemyCounter--;
         Ypos = ((double)(rand()%100)/1000*-1)-.05;
         //cout << Ypos;
         Xpos = .8;
@@ -106,7 +108,7 @@ bool enemy::isCollided(player *ply)
     if (xdistance < .05 && ydistance < .05)
     {
         //cout << "COLLISION" << endl;
-            *score += 100;
+            *score += 10;
             return true;
     }
     /*
