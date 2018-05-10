@@ -21,7 +21,7 @@
 
 using namespace std;
 
-enum gScenes {landing, mainmenu, game, fps, help };
+enum gScenes {landing, mainmenu, game, fps, finalstage, help};
 gScenes currScene = landing;
 gScenes prevScene = landing;
 HDC			hDC=NULL;		// Private GDI Device Context
@@ -472,6 +472,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                     marioScene->drawGLScene();
                     if (marioScene->sceneDone) {
                         marioScene->resetScene();
+                        prevScene = currScene;
                         currScene = fps;
                         fpsScene->initGL();
                     }
@@ -479,6 +480,12 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
                 }
                 else if (currScene == fps) {
                     fpsScene->drawGLScene();
+                    if (fpsScene->sceneDone) {
+                        fpsScene->resetScene();
+                        prevScene = currScene;
+                        currScene = game;
+                        marioScene->initGL();
+                    }
                     SwapBuffers(hDC);
                 }
 			}

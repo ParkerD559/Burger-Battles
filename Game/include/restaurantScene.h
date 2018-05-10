@@ -33,6 +33,7 @@ class restaurantScene
         float screenHeight;
         float screenWidth;
         int spatulaCounter;
+        bool sceneDone;
     protected:
 
     private:

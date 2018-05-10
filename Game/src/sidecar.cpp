@@ -1,4 +1,4 @@
-#include "sidecar.h"
+    #include "sidecar.h"
 
 #include <timer.h>
 #include <textureLoader.h>

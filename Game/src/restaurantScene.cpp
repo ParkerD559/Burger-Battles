@@ -8,6 +8,7 @@
 #include <cmath>
 #include <stdio.h>
 #include <math.h>
+#include <timer.h>
 #include <stdarg.h>
 #include <variables.h>
 //#include <random>
@@ -21,6 +22,8 @@ Model *man[3] = { new Model(), new Model(), new Model()};
 Model *cursor = new Model();
 Model *rock = new Model();
 Model *gun = new Model();
+parallax *transitionplx = new parallax();
+timer *tim3 = new timer();
 
 
 restaurantScene::restaurantScene(int *score)
@@ -29,7 +32,7 @@ restaurantScene::restaurantScene(int *score)
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     this->score = score;
-    spatulaCounter = 15;
+    spatulaCounter = 5;
 }
 
 restaurantScene::~restaurantScene()
@@ -43,10 +46,10 @@ GLvoid restaurantScene::resetScene() {
     delete restaurantPlx; restaurantPlx = new parallax();
     delete resturantPly; resturantPly = new player();
     delete restaurantSky; restaurantSky = new skyBox();
-
     delete cursor; cursor = new Model();
     delete rock; rock = new Model();
     delete gun; gun = new Model();
+    sceneDone = false;
 
 }
 
@@ -172,6 +175,7 @@ GLint restaurantScene::drawGLScene()
         glScaled(3.33,3.33,1.0);
         restaurantPlx->drawSquare(screenWidth,screenHeight);
     glPopMatrix();
+
        //restaurantPlx->scroll(true,"right",0.005);
     if(*score <= -1) {
         glPushMatrix();
@@ -202,6 +206,17 @@ GLint restaurantScene::drawGLScene()
             glPrint("YOU ARE A FAILURE", cnt1);	// Print GL Text To The Screen
         glPopMatrix();
     }
+    else if (spatulaCounter <= 0) {
+        transitionplx->parallaxInit("images/transition.png");
+        glPushMatrix();
+            glScaled(3.33,3.33,1.0);
+            transitionplx->drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+        tim3->start();
+        if(tim3->getTicks() > 1000) {
+            sceneDone = true;
+        }
+    }
     else {
         glPushMatrix();
             glTranslatef(0.0f, 0.0f, -5.0f);
@@ -230,12 +245,6 @@ GLint restaurantScene::drawGLScene()
                 man[i]->drawModel();
             glPopMatrix();
         }
-
-
-
-
-
-
         glPushMatrix();
             //glScalef(0.2, 0.2, 1);
             //glTranslated(0, 0, rock->Zoom);
