@@ -1,4 +1,5 @@
-#include "enemy.h"
+#include "sidecar.h"
+
 #include <timer.h>
 #include <textureLoader.h>
 #include <iostream>
@@ -6,36 +7,33 @@
 
 using namespace std;
 
-timer *tim = new timer();
-timer *spawnRate = new timer();
-textureLoader *enemyText = new textureLoader();
+timer *tim2 = new timer();
+//timer *spawnRate = new timer();
+textureLoader *sidecarText = new textureLoader();
 
-
-enemy::enemy(int *score)
+sidecar::sidecar()
 {
     //ctor
     verticies[0].x = 0.0;verticies[0].y = 0.0;verticies[0].z = -1;
-    verticies[1].x = .1;verticies[1].y = 0.0;verticies[1].z = -1;
-    verticies[2].x = .1;verticies[2].y = .1;verticies[2].z = -1;
-    verticies[3].x = 0.0;verticies[3].y = .1;verticies[3].z = -1;
-    srand(time(0));
-    Xpos = .9;
-    Ypos = 0;
-    //Ypos = ((double)(rand()%250)/1000*-1)-.05;
-    runSpeed = .01;
-    this->score = score;
+    verticies[1].x = .3;verticies[1].y = 0.0;verticies[1].z = -1;
+    verticies[2].x = .3;verticies[2].y = .3;verticies[2].z = -1;
+    verticies[3].x = 0.0;verticies[3].y = .3;verticies[3].z = -1;
+    Xpos = 0.9;
+    Ypos = -0.4;
+
+    runSpeed = .02;
+
 }
 
-enemy::~enemy()
+sidecar::~sidecar()
 {
     //dtor
 }
 
-void enemy::drawEnemy()
+void sidecar::drawsidecar()
 {
-
     glColor3f(1.0,1.0,1.0);
-    enemyText->binder();
+    sidecarText->binder();
     glBegin(GL_QUADS);
 
     glTexCoord2f(0.0,1.0);
@@ -51,51 +49,41 @@ void enemy::drawEnemy()
     glVertex3f(verticies[3].x,verticies[3].y,verticies[3].z);
 
     glEnd();
-
 }
 
-void enemy::enemyInit()
+void sidecar::sidecarInit()
 {
-
-
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    tim->start();
-    enemyText->binder();
-    enemyText->bindTexture("images/pixelfries.png");
-}
-
-void enemy::deleteEnemy()
-{
+    tim2->start();
+    sidecarText->binder();
+    sidecarText->bindTexture("images/sidecar.png");
 
 }
 
-void enemy::enemyScroll(player *ply)
+void sidecar::sidecarScroll(player* ply)
 {
-
-    if(tim->getTicks()>10){
-        //cout << Xpos << endl;
-        //cout << Ypos << endl;
+    if(tim2->getTicks()>10){
+        //cout << "xpos "<< Xpos << endl;
+        //cout << "ypos" << Ypos << endl;
         Xpos= Xpos - runSpeed;
-        tim->reset();
+        tim2->reset();
     }
-    if((Xpos > -.9 && Xpos <.8) && !isCollided(ply)){
+    if((Xpos > -1.1 && Xpos < 1)){
 
         glTranslated(Xpos,Ypos,0);
-
         //cout << Ypos << endl;
-        drawEnemy();
+        drawsidecar();
     }
     else{
-        //Ypos = 0;
-        Ypos = ((double)(rand()%100)/1000*-1)-.05;
         //cout << Ypos;
         Xpos = .8;
         }
-
+    //if(isCollided(ply))
+        //cout << isCollided(ply) << endl;
 }
 
-bool enemy::isCollided(player *ply)
+bool sidecar::isCollided(player* ply)
 {
     float xdistance = abs(ply->Xpos-Xpos);
     float ydistance = abs(ply->Ypos-Ypos);
@@ -103,10 +91,10 @@ bool enemy::isCollided(player *ply)
     //cout << ply->Xpos << endl;;
     //cout << xdistance << endl;
     //cout << ydistance << endl;
-    if (xdistance < .05 && ydistance < .05)
+    if (xdistance < .08 && ydistance < .15)
     {
         //cout << "COLLISION" << endl;
-            *score += 100;
+            //*score += 100;
             return true;
     }
     /*

@@ -26,7 +26,7 @@ player::player()
     actionTrigger =0;
     runTrigger = 0;
     jumpTrigger = 0;
-    jumpLoc = 0;
+    jumpLoc = -.1;
     Xpos = -.3;
     Ypos = -.3;
     startY = -.3;
@@ -163,9 +163,6 @@ void player::actions(int &action)
                 jumpspeed++;
                 jumpspeed = runspeed %10;
 `               */
-               // T->reset();
-            //}
-            //*/
             if(Ypos < startY){
                 Ypos = startY;
                 goingdown = false;

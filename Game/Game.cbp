@@ -54,6 +54,7 @@
 		<Unit filename="include/parallax.h" />
 		<Unit filename="include/player.h" />
 		<Unit filename="include/restaurantScene.h" />
+		<Unit filename="include/sidecar.h" />
 		<Unit filename="include/skyBox.h" />
 		<Unit filename="include/textureLoader.h" />
 		<Unit filename="include/timer.h" />
@@ -69,6 +70,7 @@
 		<Unit filename="src/parallax.cpp" />
 		<Unit filename="src/player.cpp" />
 		<Unit filename="src/restaurantScene.cpp" />
+		<Unit filename="src/sidecar.cpp" />
 		<Unit filename="src/skyBox.cpp" />
 		<Unit filename="src/textureLoader.cpp" />
 		<Unit filename="src/timer.cpp" />

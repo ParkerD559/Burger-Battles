@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <variables.h>
+#include <sidecar.h>
 
 int i = 100;
 Model *modelTeapot = new Model();
@@ -21,7 +22,7 @@ skyBox *sky = new skyBox;
 enemy *ene = new enemy(&i);
 timer *scenetim = new timer();
 //timer *spawns = new timer();
-
+sidecar *car = new sidecar();
 
 GLScene::GLScene(bool reset)
 {
@@ -112,6 +113,7 @@ GLint GLScene::initGL()
     ply->playerInit();
     sky->loadTextures();
     ene->enemyInit();
+    car->sidecarInit();
     buildFont();
     //spawns->start();
     return true;
@@ -166,9 +168,15 @@ GLint GLScene::drawGLScene()
     if(ply->runTrigger == 1){
         glPushMatrix();
             ene->enemyScroll(ply);
+
         glPopMatrix();
     }
 
+    if(ply->runTrigger == 1 && i < 200){
+        glPushMatrix();
+            car->sidecarScroll(ply);
+        glPopMatrix();
+    }
 
 }
 
