@@ -28,6 +28,8 @@ class Model
         double Xpos;
         double Ypos;
 
+        void set_scale(float, float);
+
         vec1 verticies[4];
 
     protected:

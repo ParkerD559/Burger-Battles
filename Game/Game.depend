@@ -1736,3 +1736,185 @@
 1525919865 source:c:\users\parker\box sync\2018_1_spring\csci191t-gamedev\burger-battles\game\src\timer.cpp
 	"timer.h"
 
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\main.cpp
+	<windows.h>
+	<GLScene.h>
+	<mainMenu.h>
+	<landingScene.h>
+	<helpScreen.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<restaurantScene.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\glscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\mainmenu.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\landingscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\helpscreen.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\restaurantscene.h
+	<windows.h>
+	<gl/gl.h>
+	<iostream>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\enemy.cpp
+	"enemy.h"
+	<timer.h>
+	<textureLoader.h>
+	<iostream>
+	<cmath>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\enemy.h
+	<Model.h>
+	<gl/gl.h>
+	<textureLoader.h>
+	<string.h>
+	<iostream>
+	<player.h>
+
+1525930238 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\model.h
+	<windows.h>
+	<GL/glut.h>
+	<textureLoader.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\common\inc\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\textureloader.h
+	<SOIL.h>
+	<gl/gl.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\common\inc\soil.h
+
+1525932104 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\player.h
+	<Model.h>
+	<gl/gl.h>
+	<textureLoader.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\timer.h
+	<time.h>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\gllight.cpp
+	"GLLight.h"
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\gllight.h
+	<GLScene.h>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\helpscreen.cpp
+	"helpScreen.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\inputs.h
+	<windows.h>
+	<iostream>
+	<Model.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<GLScene.h>
+	<helpScreen.h>
+	<landingScene.h>
+	<mainMenu.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\parallax.h
+	<iostream>
+	<string.h>
+	<gl/gl.h>
+	<windows.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\skybox.h
+	<gl/gl.h>
+	<textureLoader.h>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\inputs.cpp
+	"Inputs.h"
+	<player.h>
+	<cmath>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\landingscene.cpp
+	"landingScene.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\mainmenu.cpp
+	"mainMenu.h"
+	<GLLight.h>
+	<Inputs.h>
+	<parallax.h>
+	<timer.h>
+
+1525930238 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\model.cpp
+	"Model.h"
+	<textureLoader.h>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\parallax.cpp
+	"parallax.h"
+	<textureLoader.h>
+
+1525932165 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\player.cpp
+	<player.h>
+	<timer.h>
+	<textureLoader.h>
+	<iostream>
+	<string>
+
+1525932770 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\restaurantscene.cpp
+	"restaurantScene.h"
+	<Model.h>
+	<Inputs.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<cmath>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\skybox.cpp
+	"skyBox.h"
+	<iostream>
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\textureloader.cpp
+	<iostream>
+	"textureLoader.h"
+
+1525925283 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\timer.cpp
+	"timer.h"
+
+1525930808 source:c:\users\camro\desktop\new folder (2)\burger-battles-development\game\src\glscene.cpp
+	"GLScene.h"
+	<GLLight.h>
+	<Model.h>
+	<Inputs.h>
+	<parallax.h>
+	<player.h>
+	<skyBox.h>
+	<enemy.h>
+	<timer.h>
+	<stdio.h>
+	<math.h>
+	<stdarg.h>
+	<variables.h>
+
+1525925283 c:\users\camro\desktop\new folder (2)\burger-battles-development\game\include\variables.h
+
